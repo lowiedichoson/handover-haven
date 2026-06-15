@@ -1,6 +1,6 @@
 site_name: Handover Haven
 nav:
-  - Home: index.md
+  - Introduction: index.md
   - About: about.md
   - Changelog: changelog.md
   - Getting Started:
@@ -8,12 +8,26 @@ nav:
       - How to Use: getting-started/how-to-use.md
       - Template: getting-started/template.md
   - Handovers:
-      - Overview: handovers/overview.md
+      - Introduction: handovers/introduction.md
       - Lowie Dave Dichoson:
-          - Overview: handovers/lowie-dave-dichoson/overview.md
-          - Philequity Management, Inc.: handovers/lowie-dave-dichoson/philequity-management-inc/overview.md
-          - Vantage Equities, Inc.: handovers/lowie-dave-dichoson/vantage-equities-inc/overview.md
-          - Vantage Financial Corp.: handovers/lowie-dave-dichoson/vantage-financial-corp/overview.md
+          - About Me: handovers/lowie-dave-dichoson/about-me.md
+          - Systems: 
+                - Eterminal: handovers/lowie-dave-dichoson/systems/eterminal.md
+                - Esettlement: handovers/lowie-dave-dichoson/systems/esettlement.md
+                - LOI Generator: handovers/lowie-dave-dichoson/systems/loi-generator.md
+                - Synapse: handovers/lowie-dave-dichoson/systems/synapse.md
+                - Voyager: handovers/lowie-dave-dichoson/systems/voyager.md
+                - Voyager FX: handovers/lowie-dave-dichoson/systems/voyager-fx.md
+                - FTR Generator: handovers/lowie-dave-dichoson/systems/ftr-generator.md
+                - Navision: handovers/lowie-dave-dichoson/systems/navision.md
+                - Production Archiving: handovers/lowie-dave-dichoson/systems/production-archiving.md
+                - Clientease Frontend: handovers/lowie-dave-dichoson/systems/clientease-frontend.md
+                - Clientease Backend: handovers/lowie-dave-dichoson/systems/clientease-backend.md
+          - Common Requests: 
+                - Recreate Entries: handovers/lowie-dave-dichoson/common-requests/001-recreation-of-bridge-entries.md
+                - Transfer Bridge Entries: handovers/lowie-dave-dichoson/common-requests/002-manual-transfer-of-bridge-entries-to-navision.md
+                - Backend Formulas: handovers/lowie-dave-dichoson/common-requests/003-backend-formulas-in-esettlement.md
+                - Users List: handovers/lowie-dave-dichoson/common-requests/004-active-users-list.md
 theme:
   name: shadcn
   show_title: true

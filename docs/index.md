@@ -21,7 +21,7 @@ needs to succeed.
 | [About This Guide](about.md) | Why handovers matter and how to contribute |
 | [Getting Started](getting-started/how-to-use.md) | Step-by-step for adding your own handover |
 | [Handover Template](getting-started/template.md) | A fill-in-the-blanks template |
-| [Handovers](handovers/overview.md) | All past and current handovers, by person |
+| [Handovers](handovers/introduction.md) | All past and current handovers, by person |
 | [Changelog](changelog.md) | Who left, when, and what they documented |
 
 ## Philosophy
