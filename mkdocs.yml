@@ -11,9 +11,9 @@ nav:
       - Glossary: getting-started/glossary.md
   - Companies:
       - Overview: companies/index.md
-      - Philequity Management (PEMI): companies/pemi/index.md
-      - Vantage Equities (VEI): companies/vei/index.md
-      - Vantage Financial (VFC): companies/vfc/index.md
+      - Philequity Management: companies/pemi/index.md
+      - Vantage Equities: companies/vei/index.md
+      - Vantage Financial: companies/vfc/index.md
   - Handovers:
       - Introduction: handovers/introduction.md
       - Lowie Dave Dichoson:
