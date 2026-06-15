@@ -2,13 +2,18 @@ site_name: Handover Haven
 nav:
   - Home: index.md
   - About: about.md
-  - Getting Started: 
+  - Changelog: changelog.md
+  - Getting Started:
+      - Overview: getting-started/index.md
       - How to Use: getting-started/how-to-use.md
       - Template: getting-started/template.md
   - Handovers:
-      - Overview: handovers/index.md
-      - Lowie Dave Dichoson: handovers/lowie-dave-dichoson.md
-  - Changelog: changelog.md
+      - Overview: handovers/overview.md
+      - Lowie Dave Dichoson:
+          - Overview: handovers/lowie-dave-dichoson/overview.md
+          - Philequity Management, Inc.: handovers/lowie-dave-dichoson/philequity-management-inc/overview.md
+          - Vantage Equities, Inc.: handovers/lowie-dave-dichoson/vantage-equities-inc/overview.md
+          - Vantage Financial Corp.: handovers/lowie-dave-dichoson/vantage-financial-corp/overview.md
 theme:
   name: shadcn
   show_title: true
@@ -17,6 +22,6 @@ theme:
         light: shadcn-light
         dark: github-dark
   icon: heroicons:rocket-launch
-  topbar_sections: false
+  topbar_sections: true
   show_datetime: true
   accent: "oklch(64.5% 0.246 16.439)"
