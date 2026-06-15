@@ -19,9 +19,9 @@ applications, and recurring needs.
 
 | Company | Focus |
 |---|---|
-| [Philequity Management, Inc.] | Built the LOI Generator, maintained the legacy Philequity website, and developed the Clientease app — backend API, UI, and database |
-| [Vantage Equities, Inc.] | Maintained the legacy Vantage Equities website |
-| [Vantage Financial Corp.] | Maintained the eSettlement and eTerminal systems. Provided production support to Accounting, Transactions & Settlement, Treasury, Branch Operations, and multiple branches |
+| [Philequity Management, Inc.](../../companies/pemi/index.md) | Built the LOI Generator, maintained the legacy Philequity website, and developed the Clientease app — backend API, UI, and database |
+| [Vantage Equities, Inc.](../../companies/vei/index.md) | Maintained the legacy Vantage Equities website |
+| [Vantage Financial Corp.](../../companies/vfc/index.md) | Maintained the eSettlement and eTerminal systems. Provided production support to Accounting, Transactions & Settlement, Treasury, Branch Operations, and multiple branches |
 
 ## How My Pages Are Organized
 

@@ -21,16 +21,20 @@ This site is the team's single source of truth for:
 
 ## Sectioning Convention
 
-Every handover lives under `docs/handovers/<your-name>.md` and follows a
-consistent structure:
+Every handover lives under `docs/handovers/<your-name>/` as a folder with
+subpages. This keeps things scannable and prevents anyone from dumping
+everything into one giant file.
 
-- 🧑 Personal Info & Role
-- 📋 Responsibilities & Ongoing Projects
-- 🔑 Access & Credentials (never store secrets — just who to contact)
-- 📁 Key Files, Repos & Documentation Links
-- ⚠️ Gotchas, Pitfalls & Tribal Knowledge
-- 📞 Key Contacts & Handoff Buddies
-- 🗓️ Timeline (last day, transition period, etc.)
+Each handover folder follows a consistent structure:
+
+- `about-me.md` — 🧑 Personal info, role, tenure, team, and parting notes
+- `systems/` — 📁 One file per system: what it does, repo links, deployment, access, quirks
+- `common-requests/` — 📋 Numbered runbooks for recurring tasks and incidents
+- `databases/` — 🗄️ Schemas, key tables, and data flows (optional)
+
+The [Getting Started guide](getting-started/how-to-use.md) walks through
+creating each of these, and the [template](getting-started/template.md) gives
+you a head start.
 
 ## For Future Contributors
 

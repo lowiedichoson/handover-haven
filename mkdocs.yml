@@ -10,6 +10,7 @@ nav:
       - Onboarding Guide: getting-started/onboarding-guide.md
       - Glossary: getting-started/glossary.md
   - Companies:
+      - Overview: companies/index.md
       - Philequity Management (PEMI): companies/pemi/index.md
       - Vantage Equities (VEI): companies/vei/index.md
       - Vantage Financial (VFC): companies/vfc/index.md

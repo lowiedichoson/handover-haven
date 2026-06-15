@@ -10,6 +10,10 @@ this section will get you up to speed.
 3. Add your handover under `docs/handovers/<your-name>/` and update `mkdocs.yml`.
 4. Open a PR. That's it.
 
+If you're new to the team, start with the [Onboarding Guide](onboarding-guide.md)
+instead — it tells you what to read based on your role. Stuck on an acronym?
+Check the [Glossary](glossary.md).
+
 ## Who Should Contribute
 
 - **Resigning team members** — your handover is your responsibility.

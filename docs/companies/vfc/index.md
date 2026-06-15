@@ -35,4 +35,6 @@ _To be filled in — recurring meetings, support model, SLAs._
 
 ---
 
+📖 [All Companies](../index.md) · 📚 [Glossary](../../getting-started/glossary.md)
+
 *Last updated: June 2026*
