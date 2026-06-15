@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-06-16
+
+### Added
+
+- **Handovers introduction:** Populated `handovers/introduction.md` with section overview, handover layout description, and current-handovers table.
+- **How to Use guide:** Filled `getting-started/how-to-use.md` — 9-step walkthrough from fork to PR, plus tips.
+- **Template:** Filled `getting-started/template.md` — fill-in-the-blanks handover template matching the project structure.
+- **Glossary:** Created `getting-started/glossary.md` — company acronyms (PEMI, VEI, VFC), system definitions, team names, and common financial/IT terms.
+- **Onboarding Guide:** Created `getting-started/onboarding-guide.md` — role-based reading paths for new ICTG members, managers, and staff at each company.
+- **Company pages:** Created `companies/pemi/index.md`, `companies/vei/index.md`, `companies/vfc/index.md` — business context, system-to-handover cross-references, and departments supported by ICTG for each company.
+
+### Changed
+
+- **Navigation:** Added Companies top-level section (PEMI, VEI, VFC). Added Onboarding Guide and Glossary under Getting Started.
+
 ## 2026-06-15
 
 ### Added

@@ -1,4 +1,4 @@
-site_name: Handover Haven
+site_name: ICTG'S Handover Haven
 nav:
   - Introduction: index.md
   - About: about.md
@@ -7,6 +7,12 @@ nav:
       - Overview: getting-started/index.md
       - How to Use: getting-started/how-to-use.md
       - Template: getting-started/template.md
+      - Onboarding Guide: getting-started/onboarding-guide.md
+      - Glossary: getting-started/glossary.md
+  - Companies:
+      - Philequity Management (PEMI): companies/pemi/index.md
+      - Vantage Equities (VEI): companies/vei/index.md
+      - Vantage Financial (VFC): companies/vfc/index.md
   - Handovers:
       - Introduction: handovers/introduction.md
       - Lowie Dave Dichoson:
