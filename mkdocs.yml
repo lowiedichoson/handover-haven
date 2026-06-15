@@ -1,0 +1,22 @@
+site_name: Handover Haven
+nav:
+  - Home: index.md
+  - About: about.md
+  - Getting Started: 
+      - How to Use: getting-started/how-to-use.md
+      - Template: getting-started/template.md
+  - Handovers:
+      - Overview: handovers/index.md
+      - Lowie Dave Dichoson: handovers/lowie-dave-dichoson.md
+  - Changelog: changelog.md
+theme:
+  name: shadcn
+  show_title: true
+  show_stargazers: true
+  pygments_style:
+        light: shadcn-light
+        dark: github-dark
+  icon: heroicons:rocket-launch
+  topbar_sections: false
+  show_datetime: true
+  accent: "oklch(64.5% 0.246 16.439)"
