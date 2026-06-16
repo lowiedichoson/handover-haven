@@ -1,5 +1,3 @@
-Title: Re/create Bridge Entries
-
 # Re/create Bridge Entries
 
 ## Who Asks
@@ -128,6 +126,7 @@ If you can't resolve this after following the steps above:
 | Priority | Contact | Role |
 |---|---|---|
 | 1st | Roy Labanon | Developer Team Leader |
-| 2nd | Geoffrey Rendon | Developer |
+| 2nd | Geoffrey Rendon | Analyst Programmer |
+| 3rd | Daryl Cavan | Database Administrator |
 
 ---

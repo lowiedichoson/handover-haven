@@ -33,15 +33,17 @@ nav:
                 - Clientease Frontend: handovers/lowie-dave-dichoson/systems/clientease-frontend.md
                 - Clientease Backend: handovers/lowie-dave-dichoson/systems/clientease-backend.md
           - Common Requests: 
-                - Reverse Entries: handovers/lowie-dave-dichoson/common-requests/000-reverse-bridge-entries.md
-                - Re/create Entries: handovers/lowie-dave-dichoson/common-requests/001-recreation-of-bridge-entries.md
-                - Transfer Entries: handovers/lowie-dave-dichoson/common-requests/002-transfer-entries-to-navision.md
+                - Correcting Bridge Entries:
+                     - Reverse Entries: handovers/lowie-dave-dichoson/common-requests/000-reverse-bridge-entries.md
+                     - Re/create Entries: handovers/lowie-dave-dichoson/common-requests/001-recreation-of-bridge-entries.md
+                     - Transfer Entries: handovers/lowie-dave-dichoson/common-requests/002-transfer-entries-to-navision.md
                 - Backend Formulas: handovers/lowie-dave-dichoson/common-requests/003-backend-formulas-in-esettlement.md
                 - Users List: handovers/lowie-dave-dichoson/common-requests/004-active-users-list.md
+                - Manual Run of EOD Process: handovers/lowie-dave-dichoson/common-requests/005-manual-run-of-eod-process.md
 theme:
   name: material
   icon:
-    logo: material/rocket-launch
+    logo: octicons/rocket-16
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
