@@ -7,6 +7,8 @@ nav:
       - Overview: getting-started/index.md
       - How to Use: getting-started/how-to-use.md
       - Template: getting-started/template.md
+      - System Template: getting-started/system-template.md
+      - Common Request Template: getting-started/common-request-template.md
       - Onboarding Guide: getting-started/onboarding-guide.md
       - Glossary: getting-started/glossary.md
   - Companies:
@@ -31,18 +33,38 @@ nav:
                 - Clientease Frontend: handovers/lowie-dave-dichoson/systems/clientease-frontend.md
                 - Clientease Backend: handovers/lowie-dave-dichoson/systems/clientease-backend.md
           - Common Requests: 
-                - Recreate Entries: handovers/lowie-dave-dichoson/common-requests/001-recreation-of-bridge-entries.md
-                - Transfer Bridge Entries: handovers/lowie-dave-dichoson/common-requests/002-manual-transfer-of-bridge-entries-to-navision.md
+                - Reverse Entries: handovers/lowie-dave-dichoson/common-requests/000-reverse-bridge-entries.md
+                - Re/create Entries: handovers/lowie-dave-dichoson/common-requests/001-recreation-of-bridge-entries.md
+                - Transfer Entries: handovers/lowie-dave-dichoson/common-requests/002-transfer-entries-to-navision.md
                 - Backend Formulas: handovers/lowie-dave-dichoson/common-requests/003-backend-formulas-in-esettlement.md
                 - Users List: handovers/lowie-dave-dichoson/common-requests/004-active-users-list.md
 theme:
-  name: shadcn
-  show_title: true
-  show_stargazers: true
-  pygments_style:
-        light: shadcn-light
-        dark: github-dark
-  icon: heroicons:rocket-launch
-  topbar_sections: true
-  show_datetime: true
-  accent: "oklch(64.5% 0.246 16.439)"
+  name: material
+  icon:
+    logo: material/rocket-launch
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.snippets

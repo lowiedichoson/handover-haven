@@ -46,8 +46,14 @@ future you (and your replacement) will thank you.
 
 ## Step 4: Add Your Systems
 
-For each system you own, create a Markdown file under `systems/`. At minimum,
-cover:
+For each system you own, create a Markdown file under `systems/`. Copy the
+[System Template](system-template.md) and fill it in:
+
+```bash
+cp docs/getting-started/system-template.md docs/handovers/firstname-lastname/systems/billing-api.md
+```
+
+At minimum, cover:
 
 - What the system does
 - Where the source code lives (repo links)
@@ -59,8 +65,9 @@ Name the file after the system: `billing-api.md`, `admin-dashboard.md`, etc.
 
 ## Step 5: Document Common Requests
 
-If you handled recurring tasks, document them under `common-requests/`. Number
-them for easy scanning:
+If you handled recurring tasks, document them under `common-requests/`. Copy the
+[Common Request Template](common-request-template.md), number them, and fill in
+the steps:
 
 ```
 common-requests/

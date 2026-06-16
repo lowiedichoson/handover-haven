@@ -10,10 +10,20 @@
 - **Glossary:** Created `getting-started/glossary.md` — company acronyms (PEMI, VEI, VFC), system definitions, team names, and common financial/IT terms.
 - **Onboarding Guide:** Created `getting-started/onboarding-guide.md` — role-based reading paths for new ICTG members, managers, and staff at each company.
 - **Company pages:** Created `companies/pemi/index.md`, `companies/vei/index.md`, `companies/vfc/index.md` — business context, system-to-handover cross-references, and departments supported by ICTG for each company.
+- **Company overview:** Created `companies/index.md` — landing page with group-wide company table.
+- **System template:** Created `getting-started/system-template.md` — covers what it is, where it lives, tech stack, access, deployment, common issues, dependencies, and contacts.
+- **Common request template:** Created `getting-started/common-request-template.md` — covers who asks, prerequisites, step-by-step instructions, what can go wrong, and escalation paths.
+- **README:** Filled `README.md` with project intro, quick links, and local dev instructions.
 
 ### Changed
 
-- **Navigation:** Added Companies top-level section (PEMI, VEI, VFC). Added Onboarding Guide and Glossary under Getting Started.
+- **Navigation:** Added Companies top-level section (Overview, PEMI, VEI, VFC). Added Onboarding Guide, Glossary, System Template, and Common Request Template under Getting Started.
+- **`about.md`:** Updated sectioning convention to match actual folder-based handover structure.
+- **`getting-started/index.md`:** Added links to Onboarding Guide, Glossary, and new templates.
+- **`about-me.md`:** Fixed company name links to point to the new Companies section.
+- **Company pages:** Added footer links to All Companies and Glossary.
+- **`handovers/introduction.md`:** Added cross-link to Companies section.
+- **`getting-started/how-to-use.md`:** Steps 4 and 5 now reference the System Template and Common Request Template.
 
 ## 2026-06-15
 
