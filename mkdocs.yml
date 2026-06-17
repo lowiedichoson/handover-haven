@@ -29,7 +29,7 @@ nav:
                 - Manual Run of EOD Process: handovers/lowie-dave-dichoson/common-requests/004-manual-run-of-eod-process.md
           - Systems: 
                 - Eterminal:
-                     - Overview: handovers/lowie-dave-dichoson/systems/eterminal/overview.md
+                     - Overview: handovers/lowie-dave-dichoson/systems/eterminal/eterminal.md
                      - Backend Formulas: handovers/lowie-dave-dichoson/systems/eterminal/backend-formulas.md
                      - TCR Simulation: handovers/lowie-dave-dichoson/systems/eterminal/tcr-simulation.md
                      - BCR Simulation: handovers/lowie-dave-dichoson/systems/eterminal/bcr-simulation.md
