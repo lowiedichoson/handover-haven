@@ -1,0 +1,26 @@
+services:
+  # Production: serves the built static site on port 8080
+  handover-haven:
+    build: .
+    container_name: handover-haven
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+  # Dev mode: MkDocs live-reload server on port 8000
+  # Use: docker compose up dev
+  dev:
+    image: python:3.13-alpine
+    container_name: handover-haven-dev
+    working_dir: /app
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    command: >
+      sh -c "
+        pip install --no-cache-dir mkdocs-material &&
+        mkdocs serve --dev-addr=0.0.0.0:8000
+      "
+    profiles:
+      - dev
