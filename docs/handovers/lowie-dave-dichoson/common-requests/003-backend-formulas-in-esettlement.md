@@ -1,102 +1,115 @@
-# Backend Formula in Esettlement
+# Backend Formulas in Esettlement System
 
 ## Who Asks
 
 | | |
 |---|---|
 | **Requested by** | Accounting Department or External Auditors |
-| **How they ask** | Email, Sapphire Ticket, Walk-up |
+| **How they ask** | Email, Sapphire Ticket, In-person |
 | **Frequency** | Ad-hoc |
 
 ## What It Is
 
-Esettlement's raw data is coming from the Voyager application and database and Esettlement processes the data internally in its system and transforms it into a processed form of data that can be used for settlement by TCSG department and later on, an automated SQL job translates the processed data into accounting entries that we label as `bridge entries`. In the Esettlement system, there are different formulas used in getting the gross commission, VAT output, Share in FX, and WTAX.
+eSettlement sources data from Voyager and applies backend formulas to produce settlement LOIs and RFPs. Once TCSG manually validates the output, the data undergoes further processing into accounting entries, which Accounting then posts into Navision.
 
 ## When This Request Happens
 
-- Accounting usually requires this during their verification process if the `bridge entries` correctly reflect what's in the processed data of Esettlement.
-- Auditors need to verify that the `bridge entries` actually match what's in the processed data of Esettlement.
+- Accounting requests this during verification to confirm that bridge entries align with eSettlement's processed data.
+- Auditors request this to validate the same alignment between bridge entries and processed data.
 
 ## Prerequisites
 
-- Understanding of how Voyager, Esettlement, and Navision systems connect
-- Understanding the underlying backend processes across the systems mentioned above
+- Familiarity with the integration between Voyager, eSettlement, and Navision, including their underlying backend processes.
 
-## Steps
+## High-level diagram of the systems
 
-### 1. Run the following script in the `[Navision]` database (Eterminal)
-
-```sql
-SELECT
-	a.[OperatorID],
-	a.[Last Name] + ', ' + a.[First Name] [Name],
-	a.[OperatorEmployeeNumber] [Employee Number],
-	--a.[Old OperatorID],
-	(CASE WHEN a.[Status] = 0 THEN 'Active' ELSE 'Inactive' END) [Status],
-	(CASE WHEN a.[RoleID] = '' THEN 'Teller' ELSE a.RoleID END) [RoleID],
-	a.[E-Mail],
-	c.[Name] [Branch],
-	a.[DateTimeCreated],
-	--a.[DateTimeUpdated],
-	a.[DatetimeDeactivated],
-	a.[Created by],
-	b.[EventDateTime] [Last Login Date]
-FROM [dbo].[E-Business Services Inc_$Employee] a
-OUTER APPLY (
-	SELECT TOP 1 b.[EventDateTime]
-	FROM [AuditTrail] b
-	WHERE a.[OperatorID] = b.[UserID]
-	AND b.[EventDescription] = 'Login'
-	ORDER BY b.[EventDateTime] DESC
-	) b
-INNER JOIN [dbo].[E-Business Services Inc_$Dimension Value] c ON a.[Branch Code] = c.[Code]
-ORDER BY [OperatorID] ASC
+```mermaid
+flowchart LR
+    Voyager -->|raw data| eSettlement
+    eSettlement -->|formulas applied| LOIs/RFPs/Reports
+    LOIs/RFPs/Reports -->|TCSG validation| Accounting[Accounting Entries]
+    Accounting -->|post| Navision
 ```
 
-### 2. Extract the results to Excel / Google Sheets
+## Gross Commission, Share in FX, Output VAT backend formula from `[dbo].[spProcessTxnPH943]`
 
-1. In the results view, right-click the top-left corner of the grid and select **Copy with Headers**.
-2. Paste the results into an Excel file or Google Sheet.
-3. Share the file via email for proper documentation.
+### List of columns from ***Voyager Daily Report***
 
-### 3. Run the following script in the `[BridgeDb]` database (Esettlement)
+> ***The list below are the columns used in the backend formula of Esettlement.***
 
-```sql
-SELECT 
-    a.[username] [Username],
-    UPPER(a.[lastname]) + ', ' + UPPER(a.[firstname]) [Name],
-    a.[emp_number] [Employee ID],
-    (CASE WHEN a.[Status] = 1 THEN 'ACTIVE' ELSE 'INACTIVE' END) [Status],
-    --a.[Status_Locked] [Status Locked],
-    a.[date_created] [Date Created],
-    a.[Password_Datetime_Changed] [Password DateTime Changed],
-    CASE 
-		WHEN a.[roleid] = 1 THEN UPPER('ADMINISTRATOR')
-		WHEN a.[roleid] = 2 THEN UPPER('USER')
-		WHEN a.[roleid] = 3 THEN UPPER('Treasury Admin')
-		WHEN a.[roleid] = 4 THEN UPPER('Treasury Operations')
-		ELSE '' 
-	END [Role ID],
-    CASE 
-		WHEN a.[approvallevel] = 1 THEN 'MAKER' 
-		WHEN a.[approvallevel] = 2 THEN 'CHECKER'
-		ELSE 'APPROVER' 
-	END [Approval Level],
-    b.[logtime] [Last Login Date] -- Get the latest login time
-FROM [Users] a
-OUTER APPLY (
-    SELECT TOP 1 b.[logtime]
-    FROM [Audit_Trail_Pocket] b
-    WHERE a.[username] = b.[user] 
-    AND b.[event] = 'Login'
-    ORDER BY b.[logtime] DESC
-) b
-WHERE a.[username] <> ''
-ORDER BY a.[username]
+- Direction
+- ClearChargesLOC
+- ClearFXLOC
+- ClearPrincipalLOC
+- RecPrincipalLOC
+- TotalChargesLOC
+
+Let:
+
+- **VAT Rate** = 0.12
+
+- ***Direction*** = `I` → **WU Commission Rate** = 0.18
+
+- ***Direction*** = `P`, `R`, `O`, `Q` → **WU Commission Rate** = 0.22
+
+- ***Direction*** = `S` → **WU Commission Rate N** = 0.50
+
+### For transactions where `Direction = I`
+
+```
+Gross Commission = ClearChargesLOC  
+Share in FX = ClearFXLOC 
+Output VAT = 0  
+```
+### For transactions where `Direction = P`
+
+```
+Gross Commission = ClearChargesLOC / (1 + VAT Rate)
+Share in FX = ClearFXLOC / (1 + VAT Rate)
+Output VAT = 1 * (Gross Commission + Share in FX) * (VAT Rate)
+```
+### For transactions where `Direction = O`
+
+**1. `IF ProductCode = CAZS`**
+
+```
+Gross Commission = ClearChargesLOC / (1 + VAT Rate)
+Share in FX      = (ClearPrincipalLOC - RecPrincipalLOC + ClearFXLOC) / (1 + VAT Rate)
+Output VAT       = 1 * (Gross Commission + Share in FX) * VAT Rate
 ```
 
-### 4. Extract the Esettlement results
+**2. `ELSE`**
 
-Repeat [Step 2](#2-extract-the-results-to-excel--google-sheets) for the `Esettlement` results.
+- **`IF ClearFXLOC > 0`**
 
----
+```
+Gross Commission = -1 * ( (ClearChargesLOC / (1 - WU Commission Rate)) * WU Commission Rate / (1 + VAT Rate) )
+Share in FX     = -1 * ( (RecPrincipalLOC + TotalChargesLOC - (ClearPrincipalLOC + ClearChargesLOC + ClearFXLOC)) - (ClearChargesLOC / (1 - WU Commission Rate) * WU Commission Rate) ) / (1 + VAT Rate)
+```
+
+- **`ELSE`**
+
+```
+Gross Commission = -1 * ( (RecPrincipalLOC + TotalChargesLOC - (ClearPrincipalLOC + ClearChargesLOC + ClearFXLOC) ) ) / (1 + VAT Rate)
+Share in FX = 0
+```
+
+- **Outside of `IF ELSE`**
+
+```
+Output VAT = 1 * (Gross Commission * VAT Rate)
+```
+
+### For transactions where `Direction = Q`
+
+**1. `IF CLearFXLOC > 0`**
+
+```
+
+```
+
+**2. `ELSE`**
+
+```
+
+```
