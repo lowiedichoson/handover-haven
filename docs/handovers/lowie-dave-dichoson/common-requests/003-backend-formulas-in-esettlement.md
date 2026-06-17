@@ -31,7 +31,10 @@ flowchart LR
     Accounting -->|post| Navision
 ```
 
-## Gross Commission, Share in FX, Output VAT backend formula from `[dbo].[spProcessTxnPH943]`
+---
+
+## Gross Commission, Share in FX, Output VAT Formula
+> The formula that will be shown from this section is from the stored procedure that gets executed in the `Process Voyager Data` module of Esettlement system. The stored procedure is specifically the `[dbo].[spProcessTxnPH943]` from the `[BridgeDb]` database.
 
 ### List of columns from ***Voyager Daily Report***
 
@@ -43,6 +46,7 @@ flowchart LR
 - ClearPrincipalLOC
 - RecPrincipalLOC
 - TotalChargesLOC
+- SendPayIndicator
 
 Let:
 
@@ -54,6 +58,8 @@ Let:
 
 - ***Direction*** = `S` → **WU Commission Rate N** = 0.50
 
+---
+
 ### For transactions where `Direction = I`
 
 ```
@@ -61,6 +67,9 @@ Gross Commission = ClearChargesLOC
 Share in FX = ClearFXLOC 
 Output VAT = 0  
 ```
+
+---
+
 ### For transactions where `Direction = P`
 
 ```
@@ -68,6 +77,9 @@ Gross Commission = ClearChargesLOC / (1 + VAT Rate)
 Share in FX = ClearFXLOC / (1 + VAT Rate)
 Output VAT = 1 * (Gross Commission + Share in FX) * (VAT Rate)
 ```
+
+---
+
 ### For transactions where `Direction = O`
 
 **1. `IF ProductCode = CAZS`**
@@ -100,16 +112,68 @@ Share in FX = 0
 Output VAT = 1 * (Gross Commission * VAT Rate)
 ```
 
+---
+
 ### For transactions where `Direction = Q`
 
 **1. `IF CLearFXLOC > 0`**
 
 ```
-
+Gross Commission = -1 * ( (ClearChargesLOC / (1 - WU Commission Rate)) * WU Commission Rate / (1 + VAT Rate) )
+Share in FX     = -1 * ( (RecPrincipalLOC + TotalChargesLOC - (ClearPrincipalLOC + ClearChargesLOC + ClearFXLOC)) - (ClearChargesLOC / (1 - WU Commission Rate) * WU Commission Rate) ) / (1 + VAT Rate)
 ```
 
 **2. `ELSE`**
 
 ```
+Gross Commission = -1 * ( (RecPrincipalLOC + TotalChargesLOC - (ClearPrincipalLOC + ClearChargesLOC + ClearFXLOC) ) ) / (1 + VAT Rate)
+Share in FX = 0
+```
+
+**3. Outside of `IF ELSE`**
 
 ```
+Output VAT = 1 * (Gross Commission * VAT Rate)
+```
+
+---
+
+### For transactions where `Direction = S`
+
+**1. `IF CLearFXLOC > 0`**
+
+```
+Gross Commission = -1 * ( (ClearChargesLOC / (1 - WU Commission Rate N)) * WU Commission Rate N / (1 + VAT Rate) )
+Share in FX     = -1 * ( (RecPrincipalLOC + TotalChargesLOC - (ClearPrincipalLOC + ClearChargesLOC + ClearFXLOC)) - (ClearChargesLOC / (1 - WU Commission Rate N) * WU Commission Rate N) ) / (1 + VAT Rate)
+```
+
+**2. `ELSE`**
+
+```
+Gross Commission = -1 * ( (RecPrincipalLOC + TotalChargesLOC - (ClearPrincipalLOC + ClearChargesLOC + ClearFXLOC) ) ) / (1 + VAT Rate)
+Share in FX = 0
+```
+
+**3. Outside of `IF ELSE`**
+
+```
+Output VAT = 1 * (Gross Commission + Share in FX) * VAT Rate
+```
+
+## Finalization of Gross Commission, Share in FX, and Output VAT
+> After the system processes the transactions using their respective formula depending on their ***Direction*** column value, the ***gross commission, share in fx, and output vat*** gets updated for finalization at the latter part of the stored procedure.
+
+- **If the transaction is from a branch and if the transaction's SendPayIndicator value is S**
+	- **`IF Direction = S`**
+		- ```
+			Gross Commission = Gross Commission / 2
+			Output VAT = 1 * (Share in FX + Gross Commission) * VAT Rate
+		  ```
+	- **`ELSE`**
+		- **`IF ProductCode IS NOT CAZS`**
+			- ```
+				Gross Commission = 0
+				Output VAT = 1 * Share in FX * VAT Rate
+			  ```
+
+---
