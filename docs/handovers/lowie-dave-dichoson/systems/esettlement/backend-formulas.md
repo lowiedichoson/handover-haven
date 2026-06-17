@@ -1,4 +1,4 @@
-# Backend Formulas in Esettlement System
+# Backend Formulas in eSettlement System
 
 ## Who Asks
 
@@ -19,9 +19,9 @@ eSettlement sources data from Voyager and applies backend formulas to produce se
 
 ## Prerequisites
 
-- Familiarity with the integration between Voyager, eSettlement, and Navision, including their underlying backend processes.
+- Familiarity with the integration between Voyager, eSettlement, and Navision, and their underlying backend processes.
 
-## High-level diagram of the systems
+## High-level Diagram of the Systems
 
 ```mermaid
 flowchart LR
@@ -33,12 +33,12 @@ flowchart LR
 
 ---
 
-## Gross Commission, Share in FX, Output VAT Formula
-> The formula that will be shown from this section is from the stored procedure that gets executed in the `Process Voyager Data` module of Esettlement system. The stored procedure is specifically the `[dbo].[spProcessTxnPH943]` from the `[BridgeDb]` database.
+## Gross Commission, Share in FX, and Output VAT Formulas
+> The formulas in this section come from the stored procedure executed in the `Process Voyager Data` module of the eSettlement system — specifically `[dbo].[spProcessTxnPH943]` from the `[BridgeDb]` database.
 
 ### List of columns from ***Voyager Daily Report***
 
-> ***The list below are the columns used in the backend formula of Esettlement.***
+> ***The list below contains the columns used in the backend formulas of eSettlement.***
 
 - Direction
 - ClearChargesLOC
@@ -116,7 +116,7 @@ Output VAT = 1 * (Gross Commission * VAT Rate)
 
 ### For transactions where `Direction = Q`
 
-**1. `IF CLearFXLOC > 0`**
+**1. `IF ClearFXLOC > 0`**
 
 ```
 Gross Commission = -1 * ( (ClearChargesLOC / (1 - WU Commission Rate)) * WU Commission Rate / (1 + VAT Rate) )
@@ -140,7 +140,7 @@ Output VAT = 1 * (Gross Commission * VAT Rate)
 
 ### For transactions where `Direction = S`
 
-**1. `IF CLearFXLOC > 0`**
+**1. `IF ClearFXLOC > 0`**
 
 ```
 Gross Commission = -1 * ( (ClearChargesLOC / (1 - WU Commission Rate N)) * WU Commission Rate N / (1 + VAT Rate) )
@@ -161,19 +161,16 @@ Output VAT = 1 * (Gross Commission + Share in FX) * VAT Rate
 ```
 
 ## Finalization of Gross Commission, Share in FX, and Output VAT
-> After the system processes the transactions using their respective formula depending on their ***Direction*** column value, the ***gross commission, share in fx, and output vat*** gets updated for finalization at the latter part of the stored procedure.
+> After the system processes the transactions using their respective formulas depending on their ***Direction*** column value, the ***gross commission, share in fx, and output vat*** get updated for finalization at a later stage of the stored procedure.
 
-- **If the transaction is from a branch and if the transaction's SendPayIndicator value is S**
+- **If the transaction is from a branch and its `SendPayIndicator` value is `S`**
 	- **`IF Direction = S`**
-		- ```
-			Gross Commission = Gross Commission / 2
-			Output VAT = 1 * (Share in FX + Gross Commission) * VAT Rate
-		  ```
+		- `Gross Commission = Gross Commission / 2`
+		- `Output VAT = 1 * (Share in FX + Gross Commission) * VAT Rate`
+		  
 	- **`ELSE`**
 		- **`IF ProductCode IS NOT CAZS`**
-			- ```
-				Gross Commission = 0
-				Output VAT = 1 * Share in FX * VAT Rate
-			  ```
+			- `Gross Commission = 0`
+			- `Output VAT = 1 * Share in FX * VAT Rate`
 
 ---
