@@ -21,25 +21,38 @@ nav:
       - Lowie Dave Dichoson:
           - About Me: handovers/lowie-dave-dichoson/about-me.md
           - Systems: 
-                - Eterminal: handovers/lowie-dave-dichoson/systems/eterminal.md
-                - Esettlement: handovers/lowie-dave-dichoson/systems/esettlement.md
+                - Eterminal:
+                     - Overview: handovers/lowie-dave-dichoson/systems/eterminal/overview.md
+                     - Backend Formulas: handovers/lowie-dave-dichoson/systems/eterminal/backend-formulas.md
+                     - TCR Simulation: handovers/lowie-dave-dichoson/systems/eterminal/tcr-simulation.md
+                     - BCR Simulation: handovers/lowie-dave-dichoson/systems/eterminal/bcr-simulation.md
+                     - EOD Process: handovers/lowie-dave-dichoson/systems/eterminal/eod-process.md
+                     - Database Tables: handovers/lowie-dave-dichoson/systems/eterminal/common-database-tables.md
+                - Esettlement:
+                     - Overview: handovers/lowie-dave-dichoson/systems/esettlement/esettlement.md
+                     - Backend Formulas: handovers/lowie-dave-dichoson/systems/esettlement/backend-formulas.md
+                     - Database Tables: handovers/lowie-dave-dichoson/systems/esettlement/common-database-tables.md
+                     - TCSG Daily Process: handovers/lowie-dave-dichoson/systems/esettlement/tcsg-daily-process.md
+                - ClientEase:
+                     - Frontend: handovers/lowie-dave-dichoson/systems/clientease/frontend.md
+                     - Backend: handovers/lowie-dave-dichoson/systems/clientease/backend.md
+                     - Database: handovers/lowie-dave-dichoson/systems/clientease/database.md
+                     - PDF Builder: handovers/lowie-dave-dichoson/systems/clientease/pdf-builder.md
+                     - Report Generator: handovers/lowie-dave-dichoson/systems/clientease/report-generator.md
                 - LOI Generator: handovers/lowie-dave-dichoson/systems/loi-generator.md
-                - Synapse: handovers/lowie-dave-dichoson/systems/synapse.md
+                - Synapse: handovers/lowie-dave-dichoson/systems/synapse/synapse.md
                 - Voyager: handovers/lowie-dave-dichoson/systems/voyager.md
                 - Voyager FX: handovers/lowie-dave-dichoson/systems/voyager-fx.md
                 - FTR Generator: handovers/lowie-dave-dichoson/systems/ftr-generator.md
                 - Navision: handovers/lowie-dave-dichoson/systems/navision.md
                 - Production Archiving: handovers/lowie-dave-dichoson/systems/production-archiving.md
-                - Clientease Frontend: handovers/lowie-dave-dichoson/systems/clientease-frontend.md
-                - Clientease Backend: handovers/lowie-dave-dichoson/systems/clientease-backend.md
           - Common Requests: 
                 - Correcting Bridge Entries:
                      - Reverse Entries: handovers/lowie-dave-dichoson/common-requests/000-reverse-bridge-entries.md
                      - Re/create Entries: handovers/lowie-dave-dichoson/common-requests/001-recreation-of-bridge-entries.md
                      - Transfer Entries: handovers/lowie-dave-dichoson/common-requests/002-transfer-entries-to-navision.md
-                - Backend Formulas: handovers/lowie-dave-dichoson/common-requests/003-backend-formulas-in-esettlement.md
-                - Users List: handovers/lowie-dave-dichoson/common-requests/004-active-users-list.md
-                - Manual Run of EOD Process: handovers/lowie-dave-dichoson/common-requests/005-manual-run-of-eod-process.md
+                - Users List: handovers/lowie-dave-dichoson/common-requests/003-active-users-list.md
+                - Manual Run of EOD Process: handovers/lowie-dave-dichoson/common-requests/004-manual-run-of-eod-process.md
 theme:
   name: material
   icon:

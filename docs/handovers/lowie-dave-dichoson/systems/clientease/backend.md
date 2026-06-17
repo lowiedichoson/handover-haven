@@ -94,7 +94,9 @@ The backend REST API for PEMI ClientEase — Philequity Management, Inc.'s inves
 
 ### Known Gaps / TODOs
 
-- No test project exists yet. The solution references recommend creating `PEMIClientEase.CoreAPI.Tests`.
+- End-to-end tests
+- Clean up of the N+1 queries on the Repository layers of some features
+- Globalized error handling implementation on all features
 - `appsettings.json` currently contains a plaintext SMTP password and DB credentials — these should be moved to environment variables/secrets for production.
 
 ---
