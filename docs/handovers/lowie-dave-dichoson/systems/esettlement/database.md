@@ -1,10 +1,10 @@
-# Common Database Tables in eSettlement
+# eSettlement Database
 
 ## Overview
 
 eSettlement spans three databases — `BridgeDb`, `Voyager`, and `Treasury`. This page documents the tables, views, and stored procedures you'll commonly encounter during debugging, reporting, and maintenance tasks.
 
-> For the formulas behind the computed values, see [Backend Formulas](backend-formulas.md).
+> For the formulas behind the computed values for `[dbo].[txnProcess]` table, see [Backend Formulas](backend-formulas.md).
 
 ---
 
@@ -12,8 +12,8 @@ eSettlement spans three databases — `BridgeDb`, `Voyager`, and `Treasury`. Thi
 
 | Database | Purpose | When You Query It |
 |---|---|---|
-| `BridgeDb` | [e.g., Core processing — holds transaction staging, bridge entries, and formula outputs] | [e.g., Debugging bridge entry issues, checking processed transactions] |
-| `Voyager` | [e.g., Raw source data — receives WU transaction data from WUSFG] | [e.g., Tracing raw transaction data before processing] |
+| `BridgeDb` | Core database of the esettlement system where its main tables are housed | [e.g., Debugging bridge entry issues, checking processed transactions] |
+| `Voyager` | Raw source data | [e.g., Tracing raw transaction data before processing] |
 | `Treasury` | [e.g., Accounting / financial entries — holds data ready for Navision posting] | [e.g., Verifying accounting entries before transfer to Navision] |
 
 ---
@@ -22,25 +22,27 @@ eSettlement spans three databases — `BridgeDb`, `Voyager`, and `Treasury`. Thi
 
 ### Key Tables
 
-| Table | What It Stores | Used In | Key Columns / Notes |
-|---|---|---|---|
-| `[TABLE_NAME]` | [Description] | [Process / module] | `[Column1]`, `[Column2]`, `[Column3]` |
-| `[TABLE_NAME]` | [Description] | [Process / module] | `[Column1]`, `[Column2]` |
-
-> Add or remove rows as needed. Only include tables you actually query day-to-day — skip lookup/config tables unless they've caused issues before.
+| Table | What It Stores | Used In |
+|---|---|---|
+| `[dbo].[ARAP Daily]` | Accounts receivables and accounts payables on a daily basis | *Process Daily Settlement* module |
+| `[dbo].[Audit_Trail_Pocket]` | User event / action logs | [Process / module] |
+| `[dbo].[brsaAccount]` | API / APZ accounts provisioned by Western Union, used by branches or sub-agents in their PHP / USD transactions | Branch/Subagent Maintenance |
+| `[dbo].[brsaDetail]` | Related to `[dbo].[brsaAccount]` — stores branch name, type (branch or sub-agent), and other branch / sub-agent information | Branch/Subagent Maintenance |
+| `[dbo].[JournalVoucherNEW]` | Stores the bridge accounting entries | *Create Accounting Entries* module |
+| `[dbo].[PDSRate]` | Stores the PDS rate on a daily basis | *PDS Rate* module |
+| `[dbo].[RFP]` | Stores request for payment information | *RFP* module |
+| `[dbo].[RFPDetails]` | Stores request for payment amounts (related to `[dbo].[RFP]`) | *RFP* module |
+| `[dbo].[txnEntry]` | Copy of the `[dbo].[txnEntry]` table from the Voyager database, with fewer columns — stores the raw data that will be processed into `[dbo].[txnProcessed]` | *Retrieve Voyager Data* module |
+| `[dbo].[txnProcessed]` | Processed version of the data from `[dbo].[txnEntry]` — this is where the bridge accounting entries originate from | *Process Voyager Data* module |
+| `[dbo].[wuRates]` | Stores the rates for withholding tax, VAT rate, WU commission, and Voyager rate | Transaction-related processing |
+| `[dbo].[Users]` | Stores user account information | User Maintenance |
 
 ### Key Stored Procedures
 
 | Stored Procedure | What It Does | Called By |
 |---|---|---|
-| `[dbo].[spProcessTxnPH943]` | Computes Gross Commission, Share in FX, and Output VAT for WU transactions | *Process Voyager Data* module |
-| `[dbo].[sp_...]` | [Description] | [Module / job] |
-
-### Views (if any)
-
-| View | What It Returns | Used In |
-|---|---|---|
-| `[dbo].[vw_...]` | [Description] | [Process] |
+| `[dbo].[spProcessTxnPH943]` | Populates the `[dbo].[txnProcessed]` table by computing Gross Commission, Share in FX, and Output VAT for WU transactions | *Process Voyager Data* module |
+| `[dbo].[txnCreateActngEntries]` | Creates the bridge accounting entries based on data from `[dbo].[txnProcessed]` | SQL job (daily at 9:00 AM) |
 
 ---
 
@@ -48,33 +50,19 @@ eSettlement spans three databases — `BridgeDb`, `Voyager`, and `Treasury`. Thi
 
 ### Key Tables
 
-| Table | What It Stores | Used In | Key Columns / Notes |
-|---|---|---|---|
-| `[TABLE_NAME]` | [Description — e.g., Raw daily transaction report from WU] | [Process] | `Direction`, `ClearChargesLOC`, `ClearFXLOC`, `ClearPrincipalLOC`, `RecPrincipalLOC`, `TotalChargesLOC`, `SendPayIndicator` |
-| `[TABLE_NAME]` | [Description] | [Process] | `[Column1]`, `[Column2]` |
+| Table | What It Stores | Used In |
+|---|---|---|
+| `[dbo].[genUser]` | Stores user account information | [Process / module] |
+| `[dbo].[impHistory]` | Audit logs for the history of imported files from WUSFG | [Process / module] |
+| `[dbo].[nacAccount]` | API / APZ accounts of branches / sub-agents | [Process / module] |
+| `[dbo].[nacLocation]` | Branch / sub-agent owner information tied to the API / APZ accounts | [Process / module] |
+| `[dbo].[txnEntry]` | Stores the raw transaction data that gets pushed to eSettlement's `[BridgeDb].[dbo].[txnEntry]` table | Data source for processing |
 
 ### Key Stored Procedures
 
 | Stored Procedure | What It Does | Called By |
 |---|---|---|
-| `[dbo].[sp_...]` | [Description] | [Module / job] |
-
----
-
-## Treasury
-
-### Key Tables
-
-| Table | What It Stores | Used In | Key Columns / Notes |
-|---|---|---|---|
-| `[TABLE_NAME]` | [Description] | [Process] | `[Column1]`, `[Column2]` |
-| `[TABLE_NAME]` | [Description] | [Process] | `[Column1]`, `[Column2]` |
-
-### Key Stored Procedures
-
-| Stored Procedure | What It Does | Called By |
-|---|---|---|
-| `[dbo].[sp_...]` | [Description] | [Module / job] |
+| `[dbo].[PushTxnPH943]` | Pushes transactions from `[Voyager].[dbo].[txnEntry]` to `[BridgeDb].[dbo].[txnEntry]` | *Process Voyager Data* module |
 
 ---
 
@@ -97,16 +85,22 @@ eSettlement spans three databases — `BridgeDb`, `Voyager`, and `Treasury`. Thi
 > Describe how key tables relate across databases. This can be a simple bullet list or a Mermaid diagram.
 
 ```mermaid
-erDiagram
-    Voyager_RawData ||--o{ BridgeDb_ProcessedTxns : "processed into"
-    BridgeDb_ProcessedTxns ||--o{ Treasury_Entries : "generates"
-    Treasury_Entries ||--o{ Navision : "posted to"
+flowchart TD
+    VoyagerTxn["[Voyager].[dbo].[txnEntry]"] -->|"PushTxnPH943"| BridgeTxn["[BridgeDb].[dbo].[txnEntry]"]
+    BridgeTxn -->|"spProcessTxnPH943<br/>(Process Voyager Data)"| TxnProc["[BridgeDb].[dbo].[txnProcessed]"]
+    TxnProc -->|"Daily Settlement<br/>processing"| DailySettlement["[BridgeDb].[dbo].[Daily Settlement]"]
+    TxnProc -->|"Daily Settlement<br/>processing"| ARAP["[BridgeDb].[dbo].[ARAP Daily]"]
+    TxnProc -->|"txnCreateActngEntries<br/>(SQL job, 9:00 AM)"| JV["[BridgeDb].[dbo].[JournalVoucherNEW]"]
+    JV -->|"Navision SQL job<br/>fetches"| Nav["Navision"]
 ```
 
 Or as text:
 
-- Voyager `[TableA]` → BridgeDb `[TableB]` (joined on `[Column]`)
-- BridgeDb `[TableB]` → Treasury `[TableC]` (joined on `[Column]`)
+- `[Voyager].[dbo].[txnEntry]` → `[BridgeDb].[dbo].[txnEntry]` (pushed by `PushTxnPH943`)
+- `[BridgeDb].[dbo].[txnEntry]` → `[BridgeDb].[dbo].[txnProcessed]` (processed by `spProcessTxnPH943` in *Process Voyager Data*)
+- `[BridgeDb].[dbo].[txnProcessed]` → `[BridgeDb].[dbo].[Daily Settlement]` and `[BridgeDb].[dbo].[ARAP Daily]` (daily settlement processing)
+- `[BridgeDb].[dbo].[txnProcessed]` → `[BridgeDb].[dbo].[JournalVoucherNEW]` (generated by `txnCreateActngEntries` via SQL job at 9:00 AM)
+- `[BridgeDb].[dbo].[JournalVoucherNEW]` → Navision (fetched by a SQL job on the Navision database server)
 
 ---
 
