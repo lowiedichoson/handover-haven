@@ -38,7 +38,7 @@ nav:
                 - Esettlement:
                      - Overview: handovers/lowie-dave-dichoson/systems/esettlement/esettlement.md
                      - Backend Formulas: handovers/lowie-dave-dichoson/systems/esettlement/backend-formulas.md
-                     - Database Tables: handovers/lowie-dave-dichoson/systems/esettlement/common-database-tables.md
+                     - Database: handovers/lowie-dave-dichoson/systems/esettlement/database.md
                      - TCSG Daily Process: handovers/lowie-dave-dichoson/systems/esettlement/tcsg-daily-process.md
                 - ClientEase:
                      - Frontend: handovers/lowie-dave-dichoson/systems/clientease/frontend.md
