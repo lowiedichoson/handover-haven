@@ -36,6 +36,7 @@ eSettlement spans three databases — `BridgeDb`, `Voyager`, and `Treasury`. Thi
 | `[dbo].[txnProcessed]` | Processed version of the data from `[dbo].[txnEntry]` — this is where the bridge accounting entries originate from | *Process Voyager Data* module |
 | `[dbo].[wuRates]` | Stores the rates for withholding tax, VAT rate, WU commission, and Voyager rate | Transaction-related processing |
 | `[dbo].[Users]` | Stores user account information | User Maintenance |
+| `[dbo].[CreatedEntries]` | Stores the list of dates the system have created the bridge entries for | Creation of entries |
 
 ### Key Stored Procedures
 
@@ -72,11 +73,8 @@ eSettlement spans three databases — `BridgeDb`, `Voyager`, and `Treasury`. Thi
 
 | Scenario | Where to Look | Notes |
 |---|---|---|
-| **Find all unprocessed transactions** | `[Database].[dbo].[Table]` — filter by `[StatusColumn]` | [Any caveats] |
-| **Trace a specific Voyager transaction** | Start at `[Voyager].[dbo].[Table]`, filter by `[TransactionId]` | [Any caveats] |
-| **Check what accounting entries were generated for a date** | `[Treasury].[dbo].[Table]` — filter by `[DateColumn]` | [Any caveats] |
-| **Debug a bridge entry that won't post** | `[BridgeDb].[dbo].[Table]` — check `[StatusColumn]` | [Any caveats] |
-| **[Add your own scenario]** | `[Database].[dbo].[Table]` | [Notes] |
+| **Leftover transactions not on bridge reports after TCSG process** | Inspect the inner-joined query inside `[Voyager].[dbo].[PushTxnPH943]` | The API / APZ accounts of the leftover transactions may not be configured properly in `[Voyager].[dbo].[nacLocation]` and `[Voyager].[dbo].[nacAccount]`. Verify the account mappings in those tables. |
+| **Bridge entries not transferred to Navision (accounting dept. inquiry)** | `[BridgeDb].[dbo].[CreatedEntries]` — `ORDER BY transaction_date DESC`, limit rows | If the transaction date you're looking for is not present, the SQL job (`txnCreateActngEntries`) likely did not cover that date. See [Re/create Bridge Entries](../../common-requests/001-recreation-of-bridge-entries.md) for further instructions on recreating bridge entries. |
 
 ---
 
