@@ -49,4 +49,5 @@ SELECT TOP 20
 FROM [dbo].[AutoProcessLogs]
 ORDER BY [TransactionDate], [ID] DESC;
 ```
+
 ---
