@@ -24,14 +24,14 @@ nav:
                 - Manual Run of EOD Process: handovers/lowie-dave-dichoson/common-requests/004-manual-run-of-eod-process.md
                 - Bypass Synapse Validation: handovers/lowie-dave-dichoson/common-requests/005-bypass-synapse-validation.md
                 - Get Bridge Reports: handovers/lowie-dave-dichoson/common-requests/006-get-bridge-reports.md
+                - Get MC Approved Transactions: handovers/lowie-dave-dichoson/common-requests/007-get-mc-approved-transactions.md
           - Systems: 
                 - Eterminal:
                      - Overview: handovers/lowie-dave-dichoson/systems/eterminal/eterminal.md
-                     - Backend Formulas: handovers/lowie-dave-dichoson/systems/eterminal/backend-formulas.md
                      - TCR Simulation: handovers/lowie-dave-dichoson/systems/eterminal/tcr-simulation.md
                      - BCR Simulation: handovers/lowie-dave-dichoson/systems/eterminal/bcr-simulation.md
                      - EOD Process: handovers/lowie-dave-dichoson/systems/eterminal/eod-process.md
-                     - Database Tables: handovers/lowie-dave-dichoson/systems/eterminal/common-database-tables.md
+                     - Database: handovers/lowie-dave-dichoson/systems/eterminal/database.md
                 - Esettlement:
                      - Overview: handovers/lowie-dave-dichoson/systems/esettlement/esettlement.md
                      - Backend Formulas: handovers/lowie-dave-dichoson/systems/esettlement/backend-formulas.md

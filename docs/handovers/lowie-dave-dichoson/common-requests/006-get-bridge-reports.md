@@ -24,6 +24,8 @@ Bridge reports are used to verify the bridge entries transferred to Navision. Th
 
 ## Steps
 
+> This query is derived from the stored procedure `[dbo].[spgetRepbyParamAll]` — the same procedure called when the **Generate** button is clicked inside the **Bridge Reports** module in the eSettlement system.
+
 ### 1. Declare parameters in the query
 
 Possible values for the following parameters are:  
