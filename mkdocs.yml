@@ -23,6 +23,7 @@ nav:
                 - Users List: handovers/lowie-dave-dichoson/common-requests/003-active-users-list.md
                 - Manual Run of EOD Process: handovers/lowie-dave-dichoson/common-requests/004-manual-run-of-eod-process.md
                 - Bypass Synapse Validation: handovers/lowie-dave-dichoson/common-requests/005-bypass-synapse-validation.md
+                - Get Bridge Reports: handovers/lowie-dave-dichoson/common-requests/006-get-bridge-reports.md
           - Systems: 
                 - Eterminal:
                      - Overview: handovers/lowie-dave-dichoson/systems/eterminal/eterminal.md
