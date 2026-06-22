@@ -29,8 +29,8 @@ The manual triggering of EOD process is a rare occassion but it really happens s
 
 ```sql
 EXEC [dbo].[AutoCreateSalesBook]
-EXEC [dbo].[AutoCreateAR]
-EXEC [dbo].[AutoCloseAR]
+EXEC [dbo].[AutoCreateAR] -- See Auto Create TCR for details
+EXEC [dbo].[AutoCloseAR] -- See Auto Close TCR for details
 EXEC [dbo].[emailARTopSheet]
 EXEC [dbo].[AutoCreateMV]
 EXEC [dbo].[AutoCloseMV]

@@ -18,8 +18,8 @@ The EOD process executes the following stored procedures in sequence. All steps 
 | # | Stored Procedure | What It Does | Key Tables Affected |
 |---|---|---|---|
 | 1 | `[dbo].[AutoCreateSalesBook]` | Creates sales book entries from raw transaction data | `[dbo].[E-Business Services Inc_$Branch Journal Line]` |
-| 2 | `[dbo].[AutoCreateAR]` | Auto creates teller's cash report | `[dbo].[E-Business Services Inc_$AR Topsheet]` |
-| 3 | `[dbo].[AutoCloseAR]` | Closes the teller's cash report (TCR) for the day, finalizing all teller-level entries | `[dbo].[E-Business Services Inc_$AR Topsheet]`, `[dbo].[E-Business Services Inc_$AR Topsheet to Main Vault]` |
+| 2 | `[dbo].[AutoCreateAR]` | Auto creates teller's cash report — see [Auto Create TCR](auto-create-tellers-cash-report.md) for details | `[dbo].[E-Business Services Inc_$AR Topsheet]` |
+| 3 | `[dbo].[AutoCloseAR]` | Closes the teller's cash report (TCR) for the day, finalizing all teller-level entries — see [Auto Close TCR](auto-close-tellers-cash-report.md) for details | `[dbo].[E-Business Services Inc_$AR Topsheet]`, `[dbo].[E-Business Services Inc_$AR Topsheet to Main Vault]` |
 | 4 | `[dbo].[emailARTopSheet]` | Sends the TCR (Teller Cash Report) `.xlsx` report via email to relevant recipients | *(Read-only — queries AR Topsheet data)* |
 | 5 | `[dbo].[AutoCreateMV]` | Auto creates branch's cash report | `[dbo].[E-Business Services Inc_$AR Main Vault]` |
 | 6 | `[dbo].[AutoCloseMV]` | Closes the branch cash report (BCR) for the day, finalizing all branch-level entries | `[dbo].[E-Business Services Inc_$AR Main Vault]`, `[dbo].[E-Business Services Inc_$AR Topsheet to Main Vault]` |
