@@ -14,9 +14,6 @@ find a consistent layout:
 - **Common Requests** — recurring tasks, runbooks, and how-tos
 - **Databases** — schemas, key tables, and data flows
 
-For business context on each company (what they do, which systems they run),
-see the [Companies](../companies/index.md) section.
-
 ## Current Handovers
 
 | Person | Role | Tenure | Status |

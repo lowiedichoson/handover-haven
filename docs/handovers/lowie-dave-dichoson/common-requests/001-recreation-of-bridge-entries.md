@@ -109,7 +109,7 @@ At the end of the stored procedure `dbo.txnCreateActngEntries`, it inserts a log
 
 ### 7. Next steps
 
-After the bridge entries are created, the next step is to transfer them to the Navision system. See [Transfer Bridge Entries to Navision](002-manual-transfer-of-bridge-entries-to-navision.md).
+After the bridge entries are created, the next step is to transfer them to the Navision system. See [Transfer Bridge Entries to Navision](002-transfer-entries-to-navision.md).
 
 ## What Can Go Wrong
 
