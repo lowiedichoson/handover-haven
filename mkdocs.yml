@@ -32,6 +32,7 @@ nav:
                   - BCR Simulation: handovers/lowie-dave-dichoson/systems/eterminal/bcr-simulation.md
                   - EOD Process: handovers/lowie-dave-dichoson/systems/eterminal/eod-process.md
                   - Auto Create TCR: handovers/lowie-dave-dichoson/systems/eterminal/auto-create-tellers-cash-report.md
+                  - Auto Close TCR: handovers/lowie-dave-dichoson/systems/eterminal/auto-close-tellers-cash-report.md
                   - Database: handovers/lowie-dave-dichoson/systems/eterminal/database.md
               - Esettlement:
                   - Overview: handovers/lowie-dave-dichoson/systems/esettlement/esettlement.md

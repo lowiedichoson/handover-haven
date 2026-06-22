@@ -10,8 +10,8 @@ Auto-close performs the same operation as when a teller manually submits their T
 
 Same reasons as [Auto Create TCR](auto-create-tellers-cash-report.md) — even when a teller couldn't access the system to close their TCR, the auto-close fallback handles it for them. This covers scenarios like:
 
-1. **Unlikely but possible** — the teller had access to the terminal and the branch was operational, but they simply didn't close their TCR.
-2. **External disruptions** — power outage (can't turn on terminals/computers), internet connection issues, or other reasons that prevented terminal or computer access.
+1. **Lost connectivity mid-day** — the teller initially had internet or electricity and was able to manually create their TCR, but later in the day (e.g., mid-day) they lost their internet connection or experienced a sudden power outage. Since the system can't receive a manual submission, the auto-close at EOD closes the TCR on their behalf.
+2. **External disruptions** — power outage (can't turn on terminals/computers), internet connection issues, or other reasons that prevented terminal or computer access entirely.
 
 ## Auto-Close Condition
 
