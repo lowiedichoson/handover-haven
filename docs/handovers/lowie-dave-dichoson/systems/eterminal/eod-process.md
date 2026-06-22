@@ -11,7 +11,7 @@ The EOD (End-of-Day) Process is a **SQL job** that runs on the eTerminal server.
 
 ## Steps
 
-The EOD process executes the following stored procedures in sequence. The steps are grouped into two phases: **TCR/BCR finalization** (Steps 1–8) and **Accounting entries creation** (Steps 9–11).
+The EOD process executes the following stored procedures in sequence. All steps process the **current date's data**. The steps are grouped into two phases: **TCR/BCR finalization** (Steps 1–8) and **Accounting entries creation** (Steps 9–11).
 
 ### Phase 1: TCR / BCR Finalization
 
@@ -32,7 +32,9 @@ The EOD process executes the following stored procedures in sequence. The steps 
 |---|---|---|---|
 | 9 | `[dbo].[CreateAccountingEntriesOR]` | Creates CPR journal entries from OR (official receipt) data | `[dbo].[OR]` → `[dbo].[CPR Journal Entry]` |
 | 10 | `[dbo].[CreateAccountingEntriesNew]` | Creates CPR journal entries from raw transaction data | `[dbo].[E-Business Services Inc_$Branch Journal Line]` → `[dbo].[CPR Journal Entry]` |
-| 11 | `[dbo].[GetCPRJournalEntrySummaryPerBranch]` | Summarizes and groups individual CPR entries by branch, then populates the results into the `[dbo].[E-Business Services Inc_$JournalVoucher]` table for Navision posting | `[dbo].[CPR Journal Entry]` → `[dbo].[E-Business Services Inc_$JournalVoucher]` |
+| 11 | `[dbo].[GetCPRJournalEntrySummaryPerBranch]` | Summarizes and groups individual CPR entries by branch, then populates the results into `[dbo].[E-Business Services Inc_$JournalVoucher]` for Navision posting | `[dbo].[CPR Journal Entry]` → `[dbo].[E-Business Services Inc_$JournalVoucher]` |
+
+> ⚠️ **PDS Rate dependency** — Steps 9 and 10 (`CreateAccountingEntriesOR` and `CreateAccountingEntriesNew`) require the **PDS rate** to be configured for the current transaction date in the `[dbo].[E-Business Services Inc_$Currency Exchange Rate]` table. If the rate is missing, the creation of entries will **not proceed** and the system sends an email notification stating that it did not proceed because no PDS rate exists for the transaction date.
 
 ---
 
