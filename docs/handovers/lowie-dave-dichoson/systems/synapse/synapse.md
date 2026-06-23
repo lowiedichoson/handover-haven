@@ -63,3 +63,4 @@ Synapse is the bridge system that transfers generated CPR entries from Eterminal
 ---
 
 *Last updated: June 2026*
+

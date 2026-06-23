@@ -104,3 +104,4 @@ ORDER BY a.[username]
 Repeat [Step 2](#2-extract-the-results-to-excel--google-sheets) for the `Esettlement` results.
 
 ---
+*Last updated: June 2026*

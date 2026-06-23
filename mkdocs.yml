@@ -5,11 +5,8 @@ nav:
   - Changelog: changelog.md
   - Getting Started:
       - Overview: getting-started/index.md
-      - How to Use: getting-started/how-to-use.md
-      - Template: getting-started/template.md
-      - System Template: getting-started/system-template.md
-      - Common Request Template: getting-started/common-request-template.md
       - Onboarding Guide: getting-started/onboarding-guide.md
+      - Templates: getting-started/template.md
       - Glossary: getting-started/glossary.md
   - Handovers:
       - Introduction: handovers/introduction.md
@@ -25,6 +22,11 @@ nav:
               - Bypass Synapse Validation: handovers/lowie-dave-dichoson/common-requests/005-bypass-synapse-validation.md
               - Get Bridge Reports: handovers/lowie-dave-dichoson/common-requests/006-get-bridge-reports.md
               - Get MC Approved Transactions: handovers/lowie-dave-dichoson/common-requests/007-get-mc-approved-transactions.md
+              - Add ASM Page: handovers/lowie-dave-dichoson/common-requests/008-new-asm-page.md
+              - Add New Fund: handovers/lowie-dave-dichoson/common-requests/009-adding-of-new-fund.md
+              - Uploading of New Files: handovers/lowie-dave-dichoson/common-requests/010-uploading-of-files-and-shortened-link.md
+              - Unsettled Transactions: handovers/lowie-dave-dichoson/common-requests/011-checking-of-unsettled-transactions.md
+              - Historical NAVPS: handovers/lowie-dave-dichoson/common-requests/012-extract-historical-navps.md
           - Systems:
               - Eterminal:
                   - Overview: handovers/lowie-dave-dichoson/systems/eterminal/eterminal.md

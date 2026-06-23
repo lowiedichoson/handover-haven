@@ -174,3 +174,4 @@ Output VAT = 1 * (Gross Commission + Share in FX) * VAT Rate
 			- `Output VAT = 1 * Share in FX * VAT Rate`
 
 ---
+*Last updated: June 2026*

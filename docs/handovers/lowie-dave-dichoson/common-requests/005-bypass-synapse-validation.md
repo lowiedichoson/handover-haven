@@ -50,3 +50,4 @@ data-bind="visible: true"
 ### 4. Let the TCSG employee upload the entries using the button.
 
 ---
+*Last updated: June 2026*

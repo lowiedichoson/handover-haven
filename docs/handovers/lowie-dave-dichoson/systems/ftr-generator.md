@@ -65,3 +65,4 @@ If generation is blocked, the app reports whether daily settlement is still in p
 ---
 
 *Last updated: June 2026*
+

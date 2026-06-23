@@ -71,3 +71,4 @@ eTerminal is also where the **end-of-day (EOD)** background process runs. See [E
 ---
 
 *Last updated: June 2026*
+
