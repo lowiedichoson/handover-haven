@@ -8,7 +8,7 @@ Synapse is the bridge system that transfers generated CPR entries from Eterminal
 
 | What | Where |
 |---|---|
-| **Source repo** | Ask the Developer Team Lead for the source repository |
+| **Source repo** | Ask the Developer Team Lead |
 | **Production URL** | Ask IT Administrators |
 | **Staging URL** | Ask IT Administrators |
 | **Server** | Ask IT Administrators |
@@ -27,9 +27,8 @@ Synapse is the bridge system that transfers generated CPR entries from Eterminal
 
 | What | How to Get It |
 |---|---|
-| **Source code** | Ask the Developer Team Lead for repo access |
-| **Server access** | Request SQL Server Authentication credentials from the Server Administrator |
-| **Database access** | Request read-only database access from the Database Administrator |
+| **Server access** | Ask IT Administrators |
+| **Database access** | Ask IT Administrators |
 
 > ⚠️ **Never store passwords or connection strings here.** Just say who to contact.
 

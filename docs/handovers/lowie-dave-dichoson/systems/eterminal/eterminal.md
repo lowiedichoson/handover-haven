@@ -20,7 +20,7 @@ eTerminal is also where the **end-of-day (EOD)** background process runs. See [E
 
 | What | Where |
 |---|---|
-| **Source repo** | Ask the Developer Team Lead for the source repository |
+| **Source repo** | Ask the Developer Team Lead |
 | **Production URL** | Ask IT Administrators |
 | **Staging URL** | Ask IT Administrators |
 | **Server** | Ask IT Administrators |
@@ -39,9 +39,8 @@ eTerminal is also where the **end-of-day (EOD)** background process runs. See [E
 
 | What | How to Get It |
 |---|---|
-| **Source code** | Ask the Developer Team Lead for repo access |
-| **Server access** | Request SQL Server Authentication credentials from the Server Administrator |
-| **Database access** | Request read-only database access from the Database Administrator |
+| **Server access** | Ask IT Administrators |
+| **Database access** | Ask IT Administrators |
 | **Branch and User Maintenance** | Branch Operations |
 
 > ⚠️ **Never store passwords or connection strings here.** Just say who to contact.

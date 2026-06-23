@@ -12,7 +12,7 @@ The output consists of Excel (`.xls`) files saved to `C:\Voyager Report\YYYY\MM\
 
 | What | Where |
 |---|---|
-| **Source repo** | Ask the Developer Team Lead for the source repository |
+| **Source repo** | Ask the Developer Team Lead |
 | **Production URL** | Ask IT Administrators |
 | **Staging URL** | Ask IT Administrators |
 | **Server** | Ask IT Administrators |
@@ -33,9 +33,8 @@ The output consists of Excel (`.xls`) files saved to `C:\Voyager Report\YYYY\MM\
 
 | What | How to Get It |
 |---|---|
-| **Source code** | In this repository at `FXReport/` |
-| **Server access** | Request SQL Server Authentication credentials from the Server Administrator |
-| **Database access** | Request database access from the Database Administrator |
+| **Server access** | Ask IT Administrators |
+| **Database access** | Ask IT Administrators |
 | **Application usage** | Authorized users with ASP.NET membership credentials (Forms Authentication) |
 
 > ⚠️ **Never store passwords or connection strings here.** Just say who to contact.
