@@ -2,14 +2,13 @@
 
 New to the team? This guide tells you what to read first based on your role.
 
-## If You're Replacing Lowie (ICTG Analyst Programmer)
+## If You're Joining the Development Team (or Replacing Someone Who Recently Resigned)
 
-Start here — this is your new job:
+Start here — this covers what you'll need:
 
-1. [Lowie's About Me](../handovers/lowie-dave-dichoson/about-me.md) — who he was, what he owned
-2. [Systems](../handovers/lowie-dave-dichoson/systems/) — every system you'll be responsible for
-3. [Common Requests](../handovers/lowie-dave-dichoson/common-requests/) — the tasks people will ask you to do on day one
-4. [Glossary](glossary.md) — decode the acronyms before your first meeting
+1. [About](../about.md) — why this knowledge base exists
+2. Browse the [**Handovers**](../handovers/introduction.md) section — read the handover of the person you're replacing (or the closest role to yours) to understand their scope, the systems they owned, and common requests they handled
+3. [Glossary](glossary.md) — decode the acronyms before your first meeting
 
 Then read the company pages relevant to your systems:
 - PEMI if you're working on Clientease or LOI Generator
