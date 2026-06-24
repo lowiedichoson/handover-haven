@@ -12,13 +12,20 @@
 
 Transferring the bridge entries to the Navision system is a crucial step of the daily processes of the TCSG & Accounting department. As of writing, the transfer is done automatically via SQL Job in the database, scheduled to run daily at 9:30 AM.
 
+## Two Approaches to Transferring the Entries
+
+There are two main reasons why you're transferring the bridge entries manually, and it's one of the two reasons below:
+
+- You came from [reversing](000-reverse-bridge-entries.md) and [recreating](001-recreation-of-bridge-entries.md) because the initially generated ones are incorrect as validated by TCSG & accounting departments.
+- You came from [creating](001-recreation-of-bridge-entries.md) because there were no generated entries to begin with.
+
 ## When This Request Happens
 - The initial entries generated contain incorrect amounts as verified by TCSG & Accounting department.
 - The automated process that does the transfer of entries failed for some reason, and you'd have to do it manually as a band-aid solution.
 
 ## Prerequisites
 
-- Access to the Navision server and `[EBIZ PROD DATABASE]` database in SQL Server Management Studio (SSMS)
+- Access to the Navision `172.30.0.210` server and `[EBIZ PROD DATABASE]` database in SQL Server Management Studio (SSMS)
 - Access to execute stored procedures on `[EBIZ PROD DATABASE]`
 - Completed Job Request Form (JRF) and Release Notes
 - Approved JRF (usually Infra Team Lead and/or the concerned Department's Team Lead)
@@ -32,7 +39,7 @@ Transferring the bridge entries to the Navision system is a crucial step of the 
 > - **Do this in a staging environment PRIOR** to proceeding in production environment.
 > Once the above is resolved, proceed with the steps below.
 
-### 1. Create a new copy of the stored procedure `GetBridgeEntries`
+### 1. Create a copy of the stored procedure `GetBridgeEntries`
 
 The new copy of the stored procedure should have a date suffix for the transaction you're planning to transfer the bridge entries for. See example below.
 
@@ -70,6 +77,8 @@ END
 
 Executing the script will create a new stored procedure named `dbo.GetBridgeEntries_20260616`.
 Execute the script by pressing F5 in SSMS or clicking the Play button.
+
+> *Make sure to change the **`ALTER`** to **`CREATE`** keyword so you can avoid the error that says you cannot alter a non-existent stored procedure.*
 
 ### 4. Verify the stored procedure is created
 

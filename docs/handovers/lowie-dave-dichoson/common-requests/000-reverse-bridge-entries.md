@@ -16,6 +16,13 @@ Reversing bridge entries is a crucial step done from the backend because as of w
 - The **current** entries generated are **incorrect** as verified by TCSG & Accounting department.
 - The incorrect entries are already ***transferred and posted in Navision***, therefore requiring us to manually insert a reversed *(reversed signs)* version of them.
 
+## Previous Cases 
+
+Below are actual reasons why we had to reverse bridge entries.
+
+- Bridge entries total amounts are twice of the actual amounts verified by TCSG.
+- Bridge entries do not contain a certain branch's transactions.
+
 ## Prerequisites
 
 - Access to the Navision `172.30.0.210` server and `[EBIZ PROD DATABASE]` database in SQL Server Management Studio (SSMS)
@@ -25,12 +32,42 @@ Reversing bridge entries is a crucial step done from the backend because as of w
 
 ## Steps
 
-> ⚠️ **Before you start**, determine the state of the existing entries:
->
-> - **Not yet transferred to Navision?** You don't have to reverse anything, because it's not in Navision in the first place. Ask TCSG to reprocess their transactions in Esettlement to get the transactions with correct amounts and proceed with [recreating the entries](001-recreation-of-bridge-entries.md).
-> - **Already in Navision?** Reverse the entries in Navision first so it's as if they never existed *(this is why this documentation exists)*.
-> - **Do this in a staging environment PRIOR** to proceeding in production environment.
-> Once the above is resolved, proceed with the steps below.
+### Before You Start
+
+First, determine whether the entries have already been transferred to Navision by running the following query against `[EBIZ PROD DATABASE]`:
+
+```sql
+DECLARE @TransactionDate DATETIME = '2025-01-02'; -- update if necessary
+DECLARE @DocumentType VARCHAR(20) = 'Bridge';
+
+-- Check pre-posting table (entries are in Navision but not yet posted)
+SELECT 
+	'In JournalVoucher (not yet posted)' AS [Status], 
+	COUNT(*) AS [Count]
+FROM [dbo].[E-Business Services, Inc_$JournalVoucher]
+WHERE [TransactionDate] = @TransactionDate
+AND [DocumentType] = @DocumentType
+
+UNION ALL
+
+-- Check history table (entries are already posted in Navision)
+SELECT 
+	'In JournalVoucherHistory (already posted)' AS [Status], 
+	COUNT(*) AS [Count]
+FROM [dbo].[E-Business Services, Inc_$JournalVoucherHistory]
+WHERE [TransactionDate] = @TransactionDate
+AND [DocumentType] = @DocumentType;
+```
+
+Use the results to decide your next step:
+
+- **Not yet transferred to Navision?** (entries only in `JournalVoucher`) — You don't have to reverse anything. Ask TCSG to reprocess their transactions in Esettlement to get the correct amounts and proceed with [recreating the entries](001-recreation-of-bridge-entries.md) and ask for accounting's assistance in ***deleting these parked entries*** in Navision.
+- **Already in Navision?** (entries in `JournalVoucherHistory`) — This document covers how to reverse them.
+- **Do this in a staging environment PRIOR** to proceeding in production.
+
+Once the above is resolved, proceed with the steps below.  
+
+- **Do this in a staging environment PRIOR** to proceeding in production environment. ***Once the above is resolved, proceed with the steps below.***
 
 ### 1. Verification of the incorrect entries
 
@@ -158,7 +195,7 @@ ORDER BY [DocumentNo] ASC
 
 ```
 
->Notice that in the above code, we inserted into `[dbo].[E-Business Services, Inc_$JournalVoucher]` the rows coming from the `[dbo].[E-Business Services, Inc_$JournalVoucherHistory]` which is the history table.
+>Notice that in the above script, we inserted into `[dbo].[E-Business Services, Inc_$JournalVoucher]` the rows coming from the `[dbo].[E-Business Services, Inc_$JournalVoucherHistory]` which is the history table.
 
 ### 3. Execute the reversal script
 
@@ -189,7 +226,7 @@ ORDER BY [Description] ASC;
 
 ### 5. Next steps
 
-After the incorrect bridge entries have been successfully reversed, the most likely next step is to [recreate bridge entries.](001-recreation-of-bridge-entries.md)
+After the incorrect bridge entries have been successfully reversed, the most likely next step is to [recreate bridge entries](001-recreation-of-bridge-entries.md).
 
 ## Escalation
 

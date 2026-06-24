@@ -12,12 +12,12 @@
 
 Accounting requires the bridge entries to be ready for posting in the Navision system. Without them, their standard operating procedure (SOP) is incomplete for the day. Bridge entries are automatically created from the Esettlement system by a SQL Job in the database.
 
-## Why is it Re/Create?
+## Why "Re/Create"?
 
-This is because there are two scenarios you'd have to do this request.
+The slash covers two distinct scenarios:
 
-- Firstly, you came from the [reversal](000-reverse-bridge-entries.md) of incorrect bridge entries, which now requires you to **recreate** correct ones.
-- Second, there were no bridge entries generated to begin with. Meaning, you'd have to **create** bridge entries for a certain date.
+- **Recreate** — you came from the [reversal](000-reverse-bridge-entries.md) of incorrect bridge entries and now need to generate the correct ones.
+- **Create** — no bridge entries were generated to begin with, so you're creating them from scratch for a certain date.
 
 ## When This Request Happens
 - The initial entries generated are incorrect as verified by TCSG & Accounting department.
@@ -34,7 +34,7 @@ This is because there are two scenarios you'd have to do this request.
 
 > ⚠️ **Before you start**, determine the state of the existing entries:
 >
-> - **Not yet transferred to Navision?** Roll back that date's data first using the Rollback module in Esettlement.
+> - **Not yet transferred to Navision?** Roll back that date's data first using the Rollback module in Esettlement. If you need to confirm if the entries are in Navision, refer to [Before You Start](000-reverse-bridge-entries.md#before-you-start) in the reverse entries guide.
 > - **Already in Navision?** Reverse the entries in Navision first so it's as if they never existed. Refer to the steps [here](000-reverse-bridge-entries.md).
 > - **Do this in a staging environment PRIOR** to proceeding in production environment.
 > Once the above is resolved, proceed with the steps below.
