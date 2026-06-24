@@ -14,10 +14,10 @@ Transferring the bridge entries to the Navision system is a crucial step of the 
 
 ## Two Approaches to Transferring the Entries
 
-There are two main reasons why you're transferring the bridge entries manually, and it's one of the two reasons below:
+There are two scenarios that lead to a manual transfer:
 
-- You came from [reversing](000-reverse-bridge-entries.md) and [recreating](001-recreation-of-bridge-entries.md) because the initially generated ones are incorrect as validated by TCSG & accounting departments.
-- You came from [creating](001-recreation-of-bridge-entries.md) because there were no generated entries to begin with.
+- **Reverse + Recreate** — you came from [reversing](000-reverse-bridge-entries.md) and [recreating](001-recreation-of-bridge-entries.md) because the initially generated entries were incorrect as validated by TCSG & Accounting.
+- **Create only** — you came straight from [creating](001-recreation-of-bridge-entries.md) because no entries were generated to begin with.
 
 ## When This Request Happens
 - The initial entries generated contain incorrect amounts as verified by TCSG & Accounting department.
@@ -73,23 +73,109 @@ END
     SET @TransactionDate = '20260616' -- update if needed
 ```
 
-### 3. Execute the stored procedure
+### 3. Add the `C` Prefix (Reverse + Recreate route only)
+
+If you're coming from the **reverse + recreate** route, you need to add a `C` prefix to the `[DocumentNo]` column in the `INSERT...SELECT` block below (the reversal used `R`, the correction uses `C`). Look for this code block in the stored procedure:
+
+If you're coming from the **create only** route, **skip this step** — no prefix is needed.
+
+```sql
+insert into [EBIZ PROD DATABASE].[dbo].[E-Business Services, Inc_$JournalVoucher]
+	(
+	[DocumentType]
+	,[TransactionDate]
+	,[DocumentNo]
+	,[AccountType]
+	,[AccountNo]
+	,[Description]
+	,[Amount]
+	,[DimensionCode]
+	,[ProductCode]
+	,[CurrencyCode]
+	,[ExchangeRate]
+	,[Posted]
+	,[brsaid]
+	,[BranchSA]
+	,[DeductedAmount]
+	,[UserID]
+	,[Rate Type]
+	,[JournalType]
+	,[VATIdentifier]
+	,[JournalBatchName]
+	,[GenPostingType]
+	,[VATBusPostingGroup]
+	,[VATProdPostingGroup]
+	,[WHTBusPostingGroup]
+	,[WHTProdPostingGroup]
+	,[SourceDocumentType]
+	,[GlobalDimensionCode])
+
+SELECT
+	[DocumentType]
+	,[TransactionDate]
+	,'C' + [DocumentNo] [DocumentNo] -- add C to identify the entries as the correct ones
+	,[AccountType]
+	,[AccountNo]
+	,[Description]
+	,SUM([Amount]) Amount
+	,[DimensionCode]
+	,[ProductCode]
+	,[CurrencyCode]
+	,[ExchangeRate]
+	,[Posted]
+	,[brsaid]
+	,[BranchSA]
+	,[DeductedAmount]
+	,[UserID]
+	,[Rate Type]
+	,'GENERAL JOURNAL'[JournalType]
+	,''[VATIdentifier]
+	,''[JournalBatchName]
+	,''[GenPostingType]
+	,''[VATBusPostingGroup]
+	,''[VATProdPostingGroup]
+	,''[WHTBusPostingGroup]
+	,''[WHTProdPostingGroup]
+	,''[SourceDocumentType]
+	,''[GlobalDimensionCode]
+FROM [54.251.109.171].[BridgeDb].[dbo].[JournalVoucherNEW]
+where TransactionDate = @TransactionDate
+GROUP BY
+	[DocumentType]
+	,[TransactionDate]
+	,[DocumentNo]
+	,[AccountType]
+	,[AccountNo]
+	,[Description]
+	,[DimensionCode]
+	,[ProductCode]
+	,[CurrencyCode]
+	,[ExchangeRate]
+	,[Posted]
+	,[brsaid]
+	,[BranchSA]
+	,[DeductedAmount]
+	,[UserID]
+	,[Rate Type]
+```
+
+### 4. Execute the stored procedure
 
 Executing the script will create a new stored procedure named `dbo.GetBridgeEntries_20260616`.
 Execute the script by pressing F5 in SSMS or clicking the Play button.
 
 > *Make sure to change the **`ALTER`** to **`CREATE`** keyword so you can avoid the error that says you cannot alter a non-existent stored procedure.*
 
-### 4. Verify the stored procedure is created
+### 5. Verify the stored procedure is created
 
 Once done with the execution of the script, refresh the server connection in Object Explorer.
 Navigate to the `[EBIZ PROD DATABASE]` database, look for Programmability -> Stored Procedures -> and locate your stored procedure here.
 
-### 5. Execute the script in the production environment
+### 6. Execute the script in the production environment
 
 The server / database administrator will run the script in the production environment with your assistance. This will create the bridge entries for the target date if executed properly.
 
-### 6. Post-deployment verification
+### 7. Post-deployment verification
 
 You can verify the successful execution of the script in two ways:
 
