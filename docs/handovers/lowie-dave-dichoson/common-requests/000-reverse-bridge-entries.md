@@ -18,7 +18,7 @@ Reversing bridge entries is a crucial step done from the backend because as of w
 
 ## Prerequisites
 
-- Access to the Navision server and `[EBIZ PROD DATABASE]` database in SQL Server Management Studio (SSMS)
+- Access to the Navision `172.30.0.210` server and `[EBIZ PROD DATABASE]` database in SQL Server Management Studio (SSMS)
 - Access to execute queries with `INSERT` keyword
 - Completed Job Request Form (JRF) and Release Notes
 - Approved JRF (usually Infra Team Lead and/or the concerned Department's Team Lead)
@@ -27,7 +27,7 @@ Reversing bridge entries is a crucial step done from the backend because as of w
 
 > ⚠️ **Before you start**, determine the state of the existing entries:
 >
-> - **Not yet transferred to Navision?** You don't have to reverse anything, because it's not in Navision in the first place. Ask TCSG to reprocess their transactions in Esettlement to get the transactions with correct amounts.
+> - **Not yet transferred to Navision?** You don't have to reverse anything, because it's not in Navision in the first place. Ask TCSG to reprocess their transactions in Esettlement to get the transactions with correct amounts and proceed with [recreating the entries](001-recreation-of-bridge-entries.md).
 > - **Already in Navision?** Reverse the entries in Navision first so it's as if they never existed *(this is why this documentation exists)*.
 > - **Do this in a staging environment PRIOR** to proceeding in production environment.
 > Once the above is resolved, proceed with the steps below.
@@ -158,9 +158,11 @@ ORDER BY [DocumentNo] ASC
 
 ```
 
+>Notice that in the above code, we inserted into `[dbo].[E-Business Services, Inc_$JournalVoucher]` the rows coming from the `[dbo].[E-Business Services, Inc_$JournalVoucherHistory]` which is the history table.
+
 ### 3. Execute the reversal script
 
-The server / database administrator will execute the reversal script with your assistance.
+The server / database administrator will execute this reversal script with your assistance.
 
 ### 4. Verify that the reversal script ran successfully
 
@@ -183,9 +185,11 @@ AND [DocumentNO] LIKE 'R%'
 ORDER BY [Description] ASC;
 ```
 
+>I also highly recommend to have someone from the accounting department to verify the reversed entries in the Navision system directly, that way the verification is done both from the backend and system's perspective.
+
 ### 5. Next steps
 
-After the incorrect bridge entries have been successfully reversed, the most likely next step is to [Re/create Entries.](001-recreation-of-bridge-entries.md)
+After the incorrect bridge entries have been successfully reversed, the most likely next step is to [recreate bridge entries.](001-recreation-of-bridge-entries.md)
 
 ## Escalation
 
@@ -194,8 +198,7 @@ If you can't resolve this after following the steps above:
 | Priority | Contact | Role |
 |---|---|---|
 | 1st | Roy Labanon | Developer Team Leader |
-| 2nd | Geoffrey Rendon | Analyst Programmer |
-| 3rd | Daryl Cavan | Database Administrator |
+| 2nd | Daryl Cavan | Database Administrator |
 
 ---
 *Last updated: June 2026*

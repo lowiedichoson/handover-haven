@@ -10,7 +10,14 @@
 
 ## What It Is
 
-At the time of writing, accounting requires the bridge entries to be ready for posting in the Navision system. Without them, their standard operating procedure is incomplete for the day. Bridge entries are automatically created from the Esettlement system via a SQL Job in the database.
+Accounting requires the bridge entries to be ready for posting in the Navision system. Without them, their standard operating procedure (SOP) is incomplete for the day. Bridge entries are automatically created from the Esettlement system by a SQL Job in the database.
+
+## Why is it Re/Create?
+
+This is because there are two scenarios you'd have to do this request.
+
+- Firstly, you came from the [reversal](000-reverse-bridge-entries.md) of incorrect bridge entries, which now requires you to **recreate** correct ones.
+- Second, there were no bridge entries generated to begin with. Meaning, you'd have to **create** bridge entries for a certain date.
 
 ## When This Request Happens
 - The initial entries generated are incorrect as verified by TCSG & Accounting department.
@@ -18,7 +25,7 @@ At the time of writing, accounting requires the bridge entries to be ready for p
 
 ## Prerequisites
 
-- Access to the Esettlement server and `BridgeDb` database in SQL Server Management Studio (SSMS)
+- Access to the Esettlement `172.30.1.209` server and `BridgeDb` database in SQL Server Management Studio (SSMS)
 - Access to execute stored procedures on `BridgeDb`
 - Completed Job Request Form (JRF) and Release Notes
 - Approved JRF (usually Infra Team Lead and/or the concerned Department's Team Lead)
@@ -28,13 +35,13 @@ At the time of writing, accounting requires the bridge entries to be ready for p
 > ⚠️ **Before you start**, determine the state of the existing entries:
 >
 > - **Not yet transferred to Navision?** Roll back that date's data first using the Rollback module in Esettlement.
-> - **Already in Navision?** Reverse the entries in Navision first so it's as if they never existed.
+> - **Already in Navision?** Reverse the entries in Navision first so it's as if they never existed. Refer to the steps [here](000-reverse-bridge-entries.md).
 > - **Do this in a staging environment PRIOR** to proceeding in production environment.
 > Once the above is resolved, proceed with the steps below.
 
-### 1. Create a new copy of the stored procedure `txnCreateActngEntries`
+### 1. Create a copy of the stored procedure `txnCreateActngEntries`
 
-The new copy of the stored procedure should have a date suffix for the transaction you're planning to create the bridge entries for. See example below.
+This copy of the stored procedure should have a date suffix for the transaction you're planning to create the bridge entries for. See example below.
 
 ```sql
 -- Example: after the underscore (_), place the date
@@ -72,10 +79,12 @@ SET @varRepDate = '20260616'
 Executing the script will create a new stored procedure named `dbo.txnCreateActngEntries_20260616`.
 Execute the script by pressing F5 in SSMS or clicking the Play button.
 
+> *Make sure to change the **`ALTER`** to **`CREATE`** keyword so you can avoid the error that says you cannot alter a non-existent stored procedure.*
+
 ### 4. Verify the stored procedure is created
 
 Once done with the execution of the script, refresh the server connection in Object Explorer.
-Navigate to the `BridgeDb` database, look for Programmability -> Stored Procedures -> and locate your stored procedure here.
+Navigate to the `BridgeDb` database, look for Programmability -> Stored Procedures -> and locate your new stored procedure here.
 
 ### 5. Execute the script in the production environment
 
@@ -105,11 +114,11 @@ FROM [dbo].[CreatedEntries]
 WHERE [TransactionDate] = '20260616'; -- update the date if needed
 ```
 
-At the end of the stored procedure `dbo.txnCreateActngEntries`, it inserts a log entry into this table. If the script executed successfully, it will be returned as the result of the above query.
+At the latter part of the stored procedure `dbo.txnCreateActngEntries`, it inserts a log entry into this table. If the script executed successfully, it will be returned as the result of the above query.
 
 ### 7. Next steps
 
-After the bridge entries are created, the next step is to transfer them to the Navision system. See [Transfer Bridge Entries to Navision](002-transfer-entries-to-navision.md).
+After the bridge entries are created, the next step is to transfer them to the Navision system. See [transfer bridge entries to Navision](002-transfer-entries-to-navision.md).
 
 ## What Can Go Wrong
 
@@ -126,8 +135,7 @@ If you can't resolve this after following the steps above:
 | Priority | Contact | Role |
 |---|---|---|
 | 1st | Roy Labanon | Developer Team Leader |
-| 2nd | Geoffrey Rendon | Analyst Programmer |
-| 3rd | Daryl Cavan | Database Administrator |
+| 2nd | Daryl Cavan | Database Administrator |
 
 ---
 *Last updated: June 2026*

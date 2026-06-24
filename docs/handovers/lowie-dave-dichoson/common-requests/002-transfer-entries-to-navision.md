@@ -32,13 +32,13 @@ Transferring the bridge entries to the Navision system is a crucial step of the 
 > - **Do this in a staging environment PRIOR** to proceeding in production environment.
 > Once the above is resolved, proceed with the steps below.
 
-### 1. Create a new copy of the stored procedure `CreateBridgeEntries`
+### 1. Create a new copy of the stored procedure `GetBridgeEntries`
 
 The new copy of the stored procedure should have a date suffix for the transaction you're planning to transfer the bridge entries for. See example below.
 
 ```sql
 -- Example: after the underscore (_), place the date
-CREATE PROCEDURE [dbo].[CreateBridgeEntries_20260616]
+CREATE PROCEDURE [dbo].[GetBridgeEntries_20260616]
 ```
 
 ### 2. In the stored procedure, look for the variable `@TransactionDate`
@@ -68,7 +68,7 @@ END
 
 ### 3. Execute the stored procedure
 
-Executing the script will create a new stored procedure named `dbo.CreateBridgeEntries_20260616`.
+Executing the script will create a new stored procedure named `dbo.GetBridgeEntries_20260616`.
 Execute the script by pressing F5 in SSMS or clicking the Play button.
 
 ### 4. Verify the stored procedure is created
@@ -84,7 +84,7 @@ The server / database administrator will run the script in the production enviro
 
 You can verify the successful execution of the script in two ways:
 
-a. Run the following query to check if the created entries now exist in the `dbo.JournalVoucherNEW` table.
+a. Run the following query to check if the created entries now exist in the `dbo.[E-Business Services, Inc_$JournalVoucher]` table.
 
 ```sql
 SELECT 
@@ -105,7 +105,7 @@ FROM [dbo].[UploadedEntries]
 WHERE [TransactionDate] = '20260616'; -- update the date if needed
 ```
 
-At the end of the stored procedure `dbo.CreateBridgeEntries`, it inserts a log entry into this table. If the script executed successfully, it will be returned as the result of the above query.
+At the end of the stored procedure `dbo.GetBridgeEntries`, it inserts a log entry into this table. If the script executed successfully, it will be returned as the result of the above query.
 
 ### 7. Next steps
 
