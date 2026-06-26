@@ -23,24 +23,6 @@ applications, and recurring needs.
 | Vantage Equities, Inc. | Maintained the legacy Vantage Equities website |
 | Vantage Financial Corp. | Maintained the eSettlement and eTerminal systems. Provided production support to Accounting, Transactions & Settlement, Treasury, Branch Operations, and multiple branches |
 
-## How My Pages Are Organized
-
-Each company page follows the same structure so you always know where to look:
-
-- **Systems** — servers, infrastructure, access levels
-- **Web Applications** — apps I built or maintained, source repos, deployment
-- **Production Support** — common incidents, runbooks, escalation paths
-- **Common Requests** — the stuff people ask for repeatedly and how I handle it
-- **Debugging** — my approach, tools, and hard-won tricks
-
-## Key Contacts Across All Companies
-
-| Name | Role | Company | Contact |
-|---|---|---|---|
-| | | | |
-
-## Parting Notes
-
 ---
 
 *Last updated: June 2026*

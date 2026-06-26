@@ -23,6 +23,12 @@ PEMI Website is the legacy website of Philequity Management, Inc. It's a blog-li
 | **Database** | MySQL |
 | **Hosting** | Apache Web Server |
 
+## Key Tables in Database
+
+| Table | What It Stores |
+|---|---|
+|  | |
+
 ## Access
 
 | What | How to Get It |
