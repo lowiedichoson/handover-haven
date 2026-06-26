@@ -27,6 +27,7 @@ nav:
               - Uploading of New Files: handovers/lowie-dave-dichoson/common-requests/010-uploading-of-files-and-shortened-link.md
               - Unsettled Transactions: handovers/lowie-dave-dichoson/common-requests/011-checking-of-unsettled-transactions.md
               - Historical NAVPS: handovers/lowie-dave-dichoson/common-requests/012-extract-historical-navps.md
+          - Databases: handovers/lowie-dave-dichoson/databases.md
           - Systems:
               - Eterminal:
                   - Overview: handovers/lowie-dave-dichoson/systems/eterminal/eterminal.md
@@ -54,6 +55,8 @@ nav:
               - FTR Generator: handovers/lowie-dave-dichoson/systems/ftr-generator.md
               - Navision: handovers/lowie-dave-dichoson/systems/navision.md
               - Production Archiving: handovers/lowie-dave-dichoson/systems/production-archiving.md
+              - PEMI Website: handovers/lowie-dave-dichoson/systems/pemi-website.md
+              - VEI Website: handovers/lowie-dave-dichoson/systems/vei-website.md
 theme:
   name: material
   icon:
@@ -74,6 +77,7 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
   features:
+    - navigation.instant
     - navigation.sections
     - navigation.top
     - content.code.copy

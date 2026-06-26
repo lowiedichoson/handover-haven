@@ -50,14 +50,13 @@ If generation is blocked, the app reports whether daily settlement is still in p
 | System / Service | How It Depends | What Breaks If It's Down |
 |---|---|---|
 | **BridgeDB (SQL Server)** | All transaction data, user authentication, and FTR data are queried from this database | The app cannot load SA lists, authenticate users, or generate reports |
-| **Daily Settlement (EOD)** | FTR generation checks `CheckIfCanGenerate` — requires daily settlement to be complete before it proceeds | Reports cannot be generated; app shows "Daily Settlement is still in progress" |
 | **Network Drive Access** | `Class1.vb` maps network drives via Windows API (`WNetAddConnection2`) for file output | Reports may fail to save if the output path is on a network drive |
 
 ## Who to Ask
 
 | Team / Department | What They Know |
 |---|---|
-| **Developer Team** | Backend and database ownership, stored procedures (`GetSAListWithFTR`, `GetFTRPerSA`, `getSettlementDetailsPerBRSA`, `CheckIfCanGenerate`, `CheckIfUserExist`) |
+| **Developer Team** | Backend and database ownership |
 | **Branch Operations** | Sub-agent (SA) maintenance |
 | **Treasury Operations** | Settlement and reconciliation processes |
 
