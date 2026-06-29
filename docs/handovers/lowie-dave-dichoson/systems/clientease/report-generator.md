@@ -1,8 +1,8 @@
-# PEMIClientEase.PDFGenerator
+# PEMIClientEase.ReportGen
 
 ## What It Is
 
-A class library that generates **Client Information Summary PDFs** for Philequity (PEMI) investor onboarding and account management workflows. It is consumed by a parent ASP.NET web API — the API collects investor data and feeds it to `InvestorDocument`, which composes a multi-section PDF covering personal details, addresses, employment, FATCA/PEP compliance, risk profile, bank details, coinvestors, declarations, video verification schedules, and uploaded attachments. The same document can be rendered as an **internal compliance copy** (with attachments) or a **client-facing copy** (without attachments).
+A console application that generates **Client Information Summary** PDF file. It  populates the PDF based on the parameter passed to it when triggered. The PDF it generates contain sensitive details such as personal, employment, addresses, politically-exposed persons, risk score results, and attachments file that identify a specific person or investor. The files that this console application generate are intended for the PEMI Sales Team, as they are the one who verifies and validates these information for further processing such as account opening or updating depending on what the user requested. 
 
 ## Where It Lives
 
@@ -12,7 +12,7 @@ A class library that generates **Client Information Summary PDFs** for Philequit
 | **Production URL** | Ask IT Administrators |
 | **Staging URL** | Ask IT Administrators |
 | **Server** | Ask IT Administrators |
-| **Database** | No direct database access — data arrives via models from the parent API |
+| **Database** | `clientease` |
 
 ## Tech Stack
 
@@ -20,6 +20,7 @@ A class library that generates **Client Information Summary PDFs** for Philequit
 |---|---|
 | **Language** | C# 12 |
 | **Framework** | .NET 8.0 |
+| **Database** | PostgreSQL |
 | **Project Type** | Console Application |
 
 > ⚠️ **Never store passwords or connection strings here.** Just say who to contact.
@@ -28,9 +29,8 @@ A class library that generates **Client Information Summary PDFs** for Philequit
 
 | System / Service | How It Depends | What Breaks If It's Down |
 |---|---|---|
-| **[Parent ASP.NET Web API](backend.md)**  | Provides the investor data models (`PrimaryInvestor`, `Coinvestor`, etc.) | PDF cannot be downloaded by the investor / user |
-| **QuestPDF NuGet** | Core PDF rendering engine | Everything fails — no PDF output |
-| **ClientEase Report Generator** | Provides the list version of data models, intended for Sales team | PDFs of the investors will not be generated |
+| **`clientease`** database  | Provides the investor data models (`PrimaryInvestor`, `Coinvestor`, etc.) | PDF cannot be downloaded by the investor / user |
+| **[PEMIClientEase.PDFGenerator](pdf-builder.md)** | Core PDF rendering engine | Everything fails — no PDF output |
 
 ---
 
