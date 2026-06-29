@@ -56,10 +56,10 @@ PEMI Website is the legacy website of Philequity Management, Inc. It's a blog-li
 
 | Request | Description |
 |---|---|
-| [New ASM Page](008-new-asm-page.md) | Create a yearly Annual Stockholders' Meeting page |
-| [Adding a New Fund](009-adding-of-new-fund.md) | Add new mutual fund pages, templates, and database records |
-| [Uploading Files and Creating Shortened Links](010-uploading-of-files-and-shortened-link.md) | Upload PDFs and set up clean redirect links |
-| [Extract Historical NAVPS](012-extract-historical-navps.md) | Export historical NAVPS data from phpMyAdmin |
+| [New ASM Page](../common-requests/008-new-asm-page.md) | Create a yearly Annual Stockholders' Meeting page |
+| [Adding a New Fund](../common-requests/009-adding-of-new-fund.md) | Add new mutual fund pages, templates, and database records |
+| [Uploading Files and Creating Shortened Links](../common-requests/010-uploading-of-files-and-shortened-link.md) | Upload PDFs and set up clean redirect links |
+| [Extract Historical NAVPS](../common-requests/012-extract-historical-navps.md) | Export historical NAVPS data from phpMyAdmin |
 
 ## Handover Notes
 

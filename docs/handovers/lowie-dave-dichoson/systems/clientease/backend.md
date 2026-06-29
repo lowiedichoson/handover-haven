@@ -46,12 +46,6 @@ The backend REST API for PEMI ClientEase — Philequity Management, Inc.'s inves
 - **Frequency:** [On every merge to main / weekly / on request — to be filled]
 - **Who deploys:** [ICTG / DevOps / self-service — to be filled]
 
-## Common Issues
-
-| Problem | Likely Cause | Fix |
-|---|---|---|
-| [to be filled] | [to be filled] | [to be filled] |
-
 ## Dependencies
 
 | System / Service | How It Depends | What Breaks If It's Down |
@@ -61,11 +55,6 @@ The backend REST API for PEMI ClientEase — Philequity Management, Inc.'s inves
 | **PEMIClientEase.PDFGenerator** | Project reference — used for generating PDF documents (reports/statements) | PDF generation endpoints fail |
 | **Angular Frontend (PEMIClientEase.UI)** | Consumes this API; CORS configured for `localhost:4200` and `https://philequity.net/portal/` | Frontend can't function without the API |
 
-## Who to Ask
-
-| Name | Role | What They Know |
-|---|---|---|
-| [to be filled] | [to be filled] | [to be filled] |
 
 ## Handover Notes
 

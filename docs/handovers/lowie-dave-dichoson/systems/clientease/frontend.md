@@ -56,12 +56,6 @@ The Angular 19 single-page frontend for PEMI ClientEase — Philequity Managemen
   - Production: `npm run build:prod` (or `npm run build`)
   - Docker: `docker compose up --build`
 
-## Common Issues
-
-| Problem | Likely Cause | Fix |
-|---|---|---|
-| [to be filled] | [to be filled] | [to be filled] |
-
 ## Dependencies
 
 | System / Service | How It Depends | What Breaks If It's Down |
@@ -69,12 +63,6 @@ The Angular 19 single-page frontend for PEMI ClientEase — Philequity Managemen
 | **PEMIClientEase.CoreAPI** | All data reads/writes — reference data (countries, states, cities, banks, system references, questions), OTP auth (send/verify/resend), user submission, and file attachments | Entire frontend is non-functional; onboarding flow cannot proceed |
 | **NGINX** (production) | Serves built static assets and handles SPA fallback routing (`error_page 404 /index.html`) | Application unreachable |
 | **Node.js / npm** (dev/build) | Required for Angular CLI, dependency installation, and the build pipeline | Can't develop, build, or run locally |
-
-## Who to Ask
-
-| Name | Role | What They Know |
-|---|---|---|
-| [to be filled] | [to be filled] | [to be filled] |
 
 ## Handover Notes
 
