@@ -2,7 +2,7 @@
 
 ## What It Is
 
-A .NET 8.0 class library that generates **Client Information Summary PDFs** for Philequity (PEMI) investor onboarding and account management workflows. It is consumed by a parent ASP.NET web API — the API collects investor data and feeds it to `InvestorDocument`, which composes a multi-section PDF covering personal details, addresses, employment, FATCA/PEP compliance, risk profile, bank details, coinvestors, declarations, video verification schedules, and uploaded attachments. The same document can be rendered as an **internal compliance copy** (with attachments) or a **client-facing copy** (without attachments).
+A class library that generates **Client Information Summary PDFs** for Philequity (PEMI) investor onboarding and account management workflows. It is consumed by a parent ASP.NET web API — the API collects investor data and feeds it to `InvestorDocument`, which composes a multi-section PDF covering personal details, addresses, employment, FATCA/PEP compliance, risk profile, bank details, coinvestors, declarations, video verification schedules, and uploaded attachments. The same document can be rendered as an **internal compliance copy** (with attachments) or a **client-facing copy** (without attachments).
 
 ## Where It Lives
 
@@ -29,16 +29,9 @@ A .NET 8.0 class library that generates **Client Information Summary PDFs** for 
 
 | System / Service | How It Depends | What Breaks If It's Down |
 |---|---|---|
-| **[Parent ASP.NET Web API](backend.md)**  | Provides the investor data models (`PrimaryInvestor`, `Coinvestor`, etc.) | PDF generation cannot be triggered |
+| **[Parent ASP.NET Web API](backend.md)**  | Provides the investor data models (`PrimaryInvestor`, `Coinvestor`, etc.) | PDF cannot be downloaded by the investor / user |
 | **QuestPDF NuGet** | Core PDF rendering engine | Everything fails — no PDF output |
-| **Lato Font** (`bin/*/LatoFont/`) | Embedded font used in PDF rendering | PDF text falls back to default font, layout may break |
-
-## Who to Ask
-
-| Name | Role | What They Know |
-|---|---|---|
-| RCL | Developer | Original developer (initials from release notes v1.0.1); knows the timestamp/UTC fix, DB schema, and PDF rendering logic |
-| Lowie Dichoson | Current maintainer | Knows the codebase structure and handover context |
+| **ClientEase Report Generator** | Provides the list version of data models, intended for Sales team | PDFs of the investors will not be generated |
 
 ---
 
