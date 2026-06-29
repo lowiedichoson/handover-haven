@@ -8,7 +8,7 @@ PEMI Website is the legacy website of Philequity Management, Inc. It's a blog-li
 
 | What | Where |
 |---|---|
-| **Source repo** | Ask the Developer Team Lead |
+| **Source repo** | [GitHub](https://github.com/vantage-vei/philequity-website) |
 | **Production URL** | [www.philequity.net](https://www.philequity.net) |
 | **Staging URL** | Ask IT Administrators |
 | **Server** | Linux server — Ask IT Administrators |
