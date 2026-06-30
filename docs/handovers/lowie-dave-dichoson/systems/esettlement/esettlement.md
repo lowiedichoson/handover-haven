@@ -8,7 +8,7 @@ eSettlement is the core system responsible for processing raw transaction data f
 
 | What | Where |
 |---|---|
-| **Source repo** | Ask the Developer Team Lead |
+| **Source repo** | [GitHub](https://github.com/vantage-vei/eSettlement) |
 | **Production URL** | Ask IT Administrators |
 | **Staging URL** | Ask IT Administrators |
 | **Server** | Ask IT Administrators |

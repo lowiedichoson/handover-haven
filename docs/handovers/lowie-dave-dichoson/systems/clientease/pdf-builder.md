@@ -9,10 +9,6 @@ A class library that generates **Client Information Summary PDFs** for Philequit
 | What | Where |
 |---|---|
 | **Source repo** | [GitHub](https://github.com/PEMIClientEase/PEMIClientEase.PDFGenerator) |
-| **Production URL** | Ask IT Administrators |
-| **Staging URL** | Ask IT Administrators |
-| **Server** | Ask IT Administrators |
-| **Database** | No direct database access — data arrives via models from the parent API |
 
 ## Tech Stack
 

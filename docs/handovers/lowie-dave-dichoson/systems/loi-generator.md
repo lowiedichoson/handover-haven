@@ -10,7 +10,7 @@ The output is a `.pdf` file containing the correct transaction amounts, settleme
 
 | What | Where |
 |---|---|
-| **Source repo** | Ask the Developer Team Lead |
+| **Source repo** | [GitHub](https://github.com/vantage-vei/LOI-Generator) |
 | **Production URL** | Ask IT Administrators |
 | **Server** | Ask IT Administrators |
 | **Database(s)** | `Ideal Funds`, `Cashtrea` |

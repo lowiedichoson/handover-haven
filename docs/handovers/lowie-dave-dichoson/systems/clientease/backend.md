@@ -9,10 +9,10 @@ The backend REST API for PEMI ClientEase — Philequity Management, Inc.'s inves
 | What | Where |
 |---|---|
 | **Source repo** | [GitHub](https://github.com/PEMIClientEase/PEMIClientEase.CoreAPI) |
-| **Production URL** | Ask IT Administrators |
-| **Staging URL** | Ask IT Administrators |
+| **Production URL** | [www.philequity.net/portal/](https://www.philequity.net/portal/) |
+| **Staging URL** | [http://192.168.1.112/](http://192.168.1.112/) |
 | **Server** | Ask IT Administrators |
-| **Database** | Ask IT Administrators |
+| **Database** | `clientease` |
 
 ## Tech Stack
 

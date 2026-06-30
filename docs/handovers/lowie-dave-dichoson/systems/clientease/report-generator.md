@@ -9,8 +9,8 @@ A console application that generates **Client Information Summary** PDF file. It
 | What | Where |
 |---|---|
 | **Source repo** | [GitHub](https://github.com/PEMIClientEase/PEMIClientEase.GenReport) |
-| **Production URL** | Ask IT Administrators |
-| **Staging URL** | Ask IT Administrators |
+| **Production URL** | Same production server with [backend](backend.md) and [frontend](frontend.md) |
+| **Staging URL** | Same staging server with [backend](backend.md) and [frontend](frontend.md) |
 | **Server** | Ask IT Administrators |
 | **Database** | `clientease` |
 

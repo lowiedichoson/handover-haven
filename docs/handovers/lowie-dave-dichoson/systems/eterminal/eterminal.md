@@ -20,7 +20,7 @@ eTerminal is also where the **end-of-day (EOD)** background process runs. See [E
 
 | What | Where |
 |---|---|
-| **Source repo** | Ask the Developer Team Lead |
+| **Source repo** | [GitHub](https://github.com/vantage-vei/ETerminal) |
 | **Production URL** | Ask IT Administrators |
 | **Staging URL** | Ask IT Administrators |
 | **Server** | Ask IT Administrators |

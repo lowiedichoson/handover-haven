@@ -9,8 +9,8 @@ The Angular 19 single-page frontend for PEMI ClientEase — Philequity Managemen
 | What | Where |
 |---|---|
 | **Source repo** | [GitHub](https://github.com/PEMIClientEase/PEMIClientEase.UI) |
-| **Production URL** | Ask IT Administrators |
-| **Staging URL** | Ask IT Administrators |
+| **Production URL** | [www.philequity.net/portal/](https://www.philequity.net/portal/) |
+| **Staging URL** | [http://192.168.1.112/](http://192.168.1.112/) |
 | **Dev server** | `http://localhost:4200/` (`npm start`) |
 | **Container** | Docker multi-stage build (Node 20 Alpine → NGINX Alpine), `docker-compose.yml` for local container deployment |
 | **Backend API** | PEMIClientEase.CoreAPI — consumed at the `apiBaseUrl` configured in `src/app/core/constants/environment.ts` (dev: `http://localhost:5228/`) |

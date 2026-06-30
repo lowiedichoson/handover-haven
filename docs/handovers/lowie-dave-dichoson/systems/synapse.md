@@ -8,7 +8,7 @@ Synapse is the bridge system that transfers generated CPR entries from Eterminal
 
 | What | Where |
 |---|---|
-| **Source repo** | Ask the Developer Team Lead |
+| **Source repo** | [GitHub](https://github.com/vantagejoven/Synapse) |
 | **Production URL** | Ask IT Administrators |
 | **Staging URL** | Ask IT Administrators |
 | **Server** | Ask IT Administrators |

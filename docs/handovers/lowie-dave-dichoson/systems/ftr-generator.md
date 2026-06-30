@@ -14,7 +14,7 @@ If generation is blocked, the app reports whether daily settlement is still in p
 
 | What | Where |
 |---|---|
-| **Source repo** | Ask the Developer Team Lead |
+| **Source repo** | [GitHub](https://github.com/vantagejoven/FTR-Generator) |
 | **Production URL** | Desktop application — not web-deployed |
 | **Server** | Ask IT Administrators |
 | **Database(s)** | `BridgeDB` |
