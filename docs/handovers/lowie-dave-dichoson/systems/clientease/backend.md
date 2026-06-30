@@ -8,7 +8,7 @@ The backend REST API for PEMI ClientEase — Philequity Management, Inc.'s inves
 
 | What | Where |
 |---|---|
-| **Source repo** | Ask the Developer Team Lead |
+| **Source repo** | [GitHub](https://github.com/PEMIClientEase/PEMIClientEase.CoreAPI) |
 | **Production URL** | Ask IT Administrators |
 | **Staging URL** | Ask IT Administrators |
 | **Server** | Ask IT Administrators |

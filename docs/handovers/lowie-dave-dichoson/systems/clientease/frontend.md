@@ -8,7 +8,7 @@ The Angular 19 single-page frontend for PEMI ClientEase — Philequity Managemen
 
 | What | Where |
 |---|---|
-| **Source repo** | Ask the Developer Team Lead |
+| **Source repo** | [GitHub](https://github.com/PEMIClientEase/PEMIClientEase.UI) |
 | **Production URL** | Ask IT Administrators |
 | **Staging URL** | Ask IT Administrators |
 | **Dev server** | `http://localhost:4200/` (`npm start`) |
