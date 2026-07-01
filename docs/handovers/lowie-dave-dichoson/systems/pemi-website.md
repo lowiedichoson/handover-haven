@@ -35,6 +35,7 @@ PEMI Website is the legacy website of Philequity Management, Inc. It's a blog-li
 |---|---|
 | **Server access** | Ask IT Administrators |
 | **Database access** | Access phpMyAdmin via the production server's URL — credentials provided by IT Administrators |
+| **File Path** | /var/www/html/philequity/ |
 
 > ⚠️ **Never store passwords or connection strings here.** Just say who to contact.
 

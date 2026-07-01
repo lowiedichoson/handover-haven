@@ -18,6 +18,7 @@ VEI Website is the legacy website of Vantage Equities, Inc. It's a blog-like web
 |---|---|
 | **Server access** | Ask IT Administrators |
 | **Database access** | Access phpMyAdmin via the production server's URL — credentials provided by IT Administrators |
+| **File Path** | /var/www/html/vantage/ |
 
 > ⚠️ **Never store passwords or connection strings here.** Just say who to contact.
 
