@@ -5,45 +5,49 @@ nav:
   - Changelog: changelog.md
   - Getting Started:
       - Overview: getting-started/index.md
+      - How to Use This Wiki: getting-started/how-to-use.md
       - Onboarding Guide: getting-started/onboarding-guide.md
-      - Templates: getting-started/template.md
       - Glossary: getting-started/glossary.md
+      - Templates:
+          - System Template: getting-started/system-template.md
+          - Common Request Template: getting-started/common-request-template.md
+          - General Template: getting-started/template.md
   - Handovers:
       - Introduction: handovers/introduction.md
       - Lowie Dave Dichoson:
           - About Me: handovers/lowie-dave-dichoson/about-me.md
           - Production Server List: handovers/lowie-dave-dichoson/systems-list.md
           - System Architecture: handovers/lowie-dave-dichoson/system-architecture.md
-          - Common Requests: 
+          - Databases: handovers/lowie-dave-dichoson/databases.md
+          - Common Requests:
               - Overview: handovers/lowie-dave-dichoson/common-requests/index.md
-              - Correcting Bridge Entries:
-                  - Reverse Entries: handovers/lowie-dave-dichoson/common-requests/000-reverse-bridge-entries.md
-                  - Re/create Entries: handovers/lowie-dave-dichoson/common-requests/001-recreation-of-bridge-entries.md
-                  - Transfer Entries: handovers/lowie-dave-dichoson/common-requests/002-transfer-entries-to-navision.md
-              - Users List: handovers/lowie-dave-dichoson/common-requests/003-active-users-list.md
+              - Reverse Bridge Entries: handovers/lowie-dave-dichoson/common-requests/000-reverse-bridge-entries.md
+              - Recreate Bridge Entries: handovers/lowie-dave-dichoson/common-requests/001-recreation-of-bridge-entries.md
+              - Transfer Entries to Navision: handovers/lowie-dave-dichoson/common-requests/002-transfer-entries-to-navision.md
+              - Active Users List: handovers/lowie-dave-dichoson/common-requests/003-active-users-list.md
               - Manual Run of EOD Process: handovers/lowie-dave-dichoson/common-requests/004-manual-run-of-eod-process.md
               - Bypass Synapse Validation: handovers/lowie-dave-dichoson/common-requests/005-bypass-synapse-validation.md
               - Get Bridge Reports: handovers/lowie-dave-dichoson/common-requests/006-get-bridge-reports.md
               - Get MC Approved Transactions: handovers/lowie-dave-dichoson/common-requests/007-get-mc-approved-transactions.md
               - Add ASM Page: handovers/lowie-dave-dichoson/common-requests/008-new-asm-page.md
               - Add New Fund: handovers/lowie-dave-dichoson/common-requests/009-adding-of-new-fund.md
-              - Uploading of New Files: handovers/lowie-dave-dichoson/common-requests/010-uploading-of-files-and-shortened-link.md
+              - Upload Files: handovers/lowie-dave-dichoson/common-requests/010-uploading-of-files-and-shortened-link.md
               - Unsettled Transactions: handovers/lowie-dave-dichoson/common-requests/011-checking-of-unsettled-transactions.md
               - Historical NAVPS: handovers/lowie-dave-dichoson/common-requests/012-extract-historical-navps.md
-          - Databases: handovers/lowie-dave-dichoson/databases.md
+              - Extract Fund Fact Sheet: handovers/lowie-dave-dichoson/common-requests/013-extract-fund-fact-sheet.md
           - Systems:
               - Eterminal:
                   - Overview: handovers/lowie-dave-dichoson/systems/eterminal/eterminal.md
+                  - Database: handovers/lowie-dave-dichoson/systems/eterminal/database.md
                   - TCR Simulation: handovers/lowie-dave-dichoson/systems/eterminal/tcr-simulation.md
                   - BCR Simulation: handovers/lowie-dave-dichoson/systems/eterminal/bcr-simulation.md
                   - EOD Process: handovers/lowie-dave-dichoson/systems/eterminal/eod-process.md
                   - Auto Create TCR: handovers/lowie-dave-dichoson/systems/eterminal/auto-create-tellers-cash-report.md
                   - Auto Close TCR: handovers/lowie-dave-dichoson/systems/eterminal/auto-close-tellers-cash-report.md
-                  - Database: handovers/lowie-dave-dichoson/systems/eterminal/database.md
               - Esettlement:
                   - Overview: handovers/lowie-dave-dichoson/systems/esettlement/esettlement.md
-                  - Backend Formulas: handovers/lowie-dave-dichoson/systems/esettlement/backend-formulas.md
                   - Database: handovers/lowie-dave-dichoson/systems/esettlement/database.md
+                  - Backend Formulas: handovers/lowie-dave-dichoson/systems/esettlement/backend-formulas.md
                   - TCSG Daily Process: handovers/lowie-dave-dichoson/systems/esettlement/tcsg-daily-process.md
               - ClientEase:
                   - Frontend: handovers/lowie-dave-dichoson/systems/clientease/frontend.md
@@ -51,15 +55,16 @@ nav:
                   - Database: handovers/lowie-dave-dichoson/systems/clientease/database.md
                   - PDF Builder: handovers/lowie-dave-dichoson/systems/clientease/pdf-builder.md
                   - Report Generator: handovers/lowie-dave-dichoson/systems/clientease/report-generator.md
-              - LOI Generator: handovers/lowie-dave-dichoson/systems/loi-generator.md
-              - Synapse: handovers/lowie-dave-dichoson/systems/synapse.md
-              - Voyager: handovers/lowie-dave-dichoson/systems/voyager.md
-              - Voyager FX: handovers/lowie-dave-dichoson/systems/voyager-fx.md
-              - FTR Generator: handovers/lowie-dave-dichoson/systems/ftr-generator.md
-              - Navision: handovers/lowie-dave-dichoson/systems/navision.md
-              - Production Archiving: handovers/lowie-dave-dichoson/systems/production-archiving.md
-              - PEMI Website: handovers/lowie-dave-dichoson/systems/pemi-website.md
-              - VEI Website: handovers/lowie-dave-dichoson/systems/vei-website.md
+              - Other Systems:
+                  - LOI Generator: handovers/lowie-dave-dichoson/systems/loi-generator.md
+                  - Synapse: handovers/lowie-dave-dichoson/systems/synapse.md
+                  - Voyager: handovers/lowie-dave-dichoson/systems/voyager.md
+                  - Voyager FX: handovers/lowie-dave-dichoson/systems/voyager-fx.md
+                  - FTR Generator: handovers/lowie-dave-dichoson/systems/ftr-generator.md
+                  - Navision: handovers/lowie-dave-dichoson/systems/navision.md
+                  - Production Archiving: handovers/lowie-dave-dichoson/systems/production-archiving.md
+                  - PEMI Website: handovers/lowie-dave-dichoson/systems/pemi-website.md
+                  - VEI Website: handovers/lowie-dave-dichoson/systems/vei-website.md
 theme:
   name: material
   icon:
