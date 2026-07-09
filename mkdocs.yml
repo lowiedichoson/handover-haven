@@ -55,6 +55,10 @@ nav:
                   - Database: handovers/lowie-dave-dichoson/systems/clientease/database.md
                   - PDF Builder: handovers/lowie-dave-dichoson/systems/clientease/pdf-builder.md
                   - Report Generator: handovers/lowie-dave-dichoson/systems/clientease/report-generator.md
+              - Production Archiving:
+                  - Overview: handovers/lowie-dave-dichoson/systems/production-archiving/production-archiving.md
+                  - Eterminal: handovers/lowie-dave-dichoson/systems/production-archiving/eterm-archiving.md
+                  - Esettlement: handovers/lowie-dave-dichoson/systems/production-archiving/esettlement-archiving.md
               - Other Systems:
                   - LOI Generator: handovers/lowie-dave-dichoson/systems/loi-generator.md
                   - Synapse: handovers/lowie-dave-dichoson/systems/synapse.md
@@ -62,7 +66,6 @@ nav:
                   - Voyager FX: handovers/lowie-dave-dichoson/systems/voyager-fx.md
                   - FTR Generator: handovers/lowie-dave-dichoson/systems/ftr-generator.md
                   - Navision: handovers/lowie-dave-dichoson/systems/navision.md
-                  - Production Archiving: handovers/lowie-dave-dichoson/systems/production-archiving.md
                   - PEMI Website: handovers/lowie-dave-dichoson/systems/pemi-website.md
                   - VEI Website: handovers/lowie-dave-dichoson/systems/vei-website.md
 theme:
