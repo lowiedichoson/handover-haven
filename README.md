@@ -15,15 +15,22 @@ Built with [MkDocs](https://www.mkdocs.org/) and the
 
 ## Local Development
 
+This project uses [uv](https://docs.astral.sh/uv/) for dependency management.
+
 ```bash
 # Install dependencies
-pip install mkdocs
+uv sync
 
-# Serve locally
-mkdocs serve
+# Serve locally with live reload
+uv run mkdocs serve --livereload
 ```
 
 Open `http://127.0.0.1:8000`.
+
+> **Tip:** Use the `-a` flag to bind to a custom address and port:
+> ```bash
+> uv run mkdocs serve -a localhost:9999 --livereload
+> ```
 
 ## Contributing
 

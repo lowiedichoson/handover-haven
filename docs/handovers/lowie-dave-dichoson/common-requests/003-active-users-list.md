@@ -12,8 +12,8 @@
 
 This request is initiated by either the Branch Operations Department or External Auditors, who need an up-to-date list of active users from both `Esettlement` and `Eterminal`.
 
-> If you only need the users for **Eterminal**, start with [Step 1](#1-run-the-following-script-in-navision-database).  
-> If you only need the users for **Esettlement**, start with [Step 3](#3-run-the-following-script-in-bridgedb-database).
+> If you only need the users for **Eterminal**, start with [Step 1](#step-1-navision).  
+> If you only need the users for **Esettlement**, start with [Step 3](#step-3-bridgedb).
 
 ## When This Request Happens
 
@@ -28,7 +28,7 @@ This request is initiated by either the Branch Operations Department or External
 
 ## Steps
 
-### 1. Run the following script in the `[Navision]` database (Eterminal)
+### 1. Run the following script in the `[Navision]` database (Eterminal) {#step-1-navision}
 
 ```sql
 SELECT
@@ -57,13 +57,13 @@ INNER JOIN [dbo].[E-Business Services Inc_$Dimension Value] c ON a.[Branch Code]
 ORDER BY [OperatorID] ASC
 ```
 
-### 2. Extract the results to Excel / Google Sheets
+### 2. Extract the results to Excel / Google Sheets {#step-2-extract}
 
 1. In the results view, right-click the top-left corner of the grid and select **Copy with Headers**.
 2. Paste the results into an Excel file or Google Sheet.
 3. Share the file via email for proper documentation.
 
-### 3. Run the following script in the `[BridgeDb]` database (Esettlement)
+### 3. Run the following script in the `[BridgeDb]` database (Esettlement) {#step-3-bridgedb}
 
 ```sql
 SELECT 
@@ -101,7 +101,7 @@ ORDER BY a.[username]
 
 ### 4. Extract the Esettlement results
 
-Repeat [Step 2](#2-extract-the-results-to-excel--google-sheets) for the `Esettlement` results.
+Repeat [Step 2](#step-2-extract) for the `Esettlement` results.
 
 ---
 *Last updated: June 2026*
