@@ -1,6 +1,8 @@
 # eTerminal Archiving Configuration
 
 > This documents the actual archiving configuration found in the eTerminal `[Archive Database]` (production). The operation pattern documented here is stable — individual table configurations may change but the mechanism is consistent.
+>
+> For the shared architecture, stored procedures, key behaviors, and how-to guide, see the [Production Archiving overview](./production-archiving.md).
 
 ## Overview
 
@@ -89,21 +91,6 @@ There is 1 more configured table beyond ID 10 (11 total).
 
 ---
 
-## Stored Procedures
-
-All reside in the `[Archive Database]` on the production server.
-
-| Procedure | Role |
-|---|---|
-| `ARCHIVING_EXECUTE` | Entry point for transactional archiving. Checks prerequisite (GEN-ACC-ENT-SUM completed), then loops all active `ARCHIVING_TABLE` rows |
-| `ARCHIVING_PROCESS` | Core engine. Builds and executes dynamic INSERT/DELETE SQL for one table + its children, sends email report, logs to `AutoProcessArchiveLogs` |
-| `ARCHIVING_GETTABLECOLUMNS` | Helper. Returns comma-separated column list of a table (excludes `timestamp`) for building INSERT column lists |
-| `ARCHIVING_MATCHCOLUMNS` | Helper. Compares source/destination schemas and ALTER TABLE ADD missing columns on destination |
-| `ARCHIVING_UPDATE_TABLE_EXECUTE` | Entry point for reference data sync. Loops all active `ARCHIVING_UPDATE_TABLE` rows |
-| `ARCHIVING_UPDATE_TABLE_PROCESS` | Syncs one reference table. Performs UPDATE (if ACTION=1 or 3) and INSERT (if ACTION=2 or 3) based on `RELATION_FIELD` |
-
----
-
 ## Process Flow Diagrams
 
 ### 1. Gate & Setup — ARCHIVING_EXECUTE Entry Point
@@ -125,72 +112,7 @@ flowchart TD
     L --> M("Continue to<br/><b>Per-Table Processing</b>")
 ```
 
-### 2. Per-Table Processing — Main INSERT & DELETE Cycle
-
-```mermaid
-flowchart TD
-    M("From Setup") --> N["Build + execute INSERT<br/>source → destination<br/>WHERE date = @date<br/>AND key NOT IN destination"]
-    N --> O{"Data found<br/>to archive?"}
-    O -->|No| P["Log: NO DATA FOUND<br/>Update PROCESSED_LASTDATE"]
-    P --> Q["AutoProcessArchiveLogs:<br/>Status=1<br/>Remarks=NO DATA FOUND"]
-    Q --> H("Next date in range")
-
-    O -->|Yes| R{"RELATION_ID > 0?<br/><i>(has child tables?)</i>"}
-    R -->|No| S["Skip children"]
-    R -->|Yes| T("Process<br/><b>Child Tables</b>")
-
-    T --> S
-    S --> U{"SOURCE_DELETE = 1?"}
-    U -->|Yes| V["DELETE from source<br/>WHERE date = @date<br/>AND key IN destination"]
-    U -->|No| W["Keep source rows"]
-    V --> X["Send HTML email report<br/><i>sp_send_dbmail</i>"]
-    W --> X
-    X --> Y["Update PROCESSED_LASTDATE<br/>Set LAST_ERROR_MSG = SUCCESSFUL"]
-    Y --> Z["AutoProcessArchiveLogs:<br/>Status=1<br/>Remarks=SUCCESSFUL!"]
-    Z --> H
-
-    M -.->|"On ERROR<br/>(TRY/CATCH)"| ERR1["Log SQL error<br/>to LAST_ERROR_MSG"]
-    ERR1 --> ERR2["AutoProcessArchiveLogs:<br/>Remarks=&lt;error&gt;"]
-    ERR2 --> ERR3["Send failure email"]
-    ERR3 --> D(["END"])
-```
-
-### 3. Child Table Cascade — ARCHIVING_TABLE_RELATION
-
-```mermaid
-flowchart TD
-    T("Parent has children") --> C1["<b>Cursor over</b><br/>ARCHIVING_TABLE_RELATION<br/>WHERE ID = @RELATION_ID"]
-    C1 --> C2["<b>ARCHIVING_MATCHCOLUMNS</b><br/>Sync child schema"]
-    C2 --> C3["<b>ARCHIVING_GETTABLECOLUMNS</b><br/>Get child column list"]
-    C3 --> C4["INSERT child rows<br/>INNER JOIN parent ON key<br/>WHERE parent.date = @date<br/>AND child.key NOT IN dest"]
-    C4 --> C5{"SOURCE_DELETE = 1?"}
-    C5 -->|Yes| C6["DELETE child rows<br/>from source<br/>JOIN parent ON key"]
-    C5 -->|No| C7["Keep child in source"]
-    C6 --> C8["Return to<br/>Per-Table Processing"]
-    C7 --> C8
-```
-
-### 4. Reference Data Sync — ARCHIVING_UPDATE_TABLE
-
-```mermaid
-flowchart TD
-    AA["<b>SQL Agent Job</b><br/>calls ARCHIVING_UPDATE_TABLE_EXECUTE"] --> AB["Cursor loop:<br/>SELECT ID FROM ARCHIVING_UPDATE_TABLE<br/>WHERE ACTIVE = 1"]
-    AB --> AC["<b>ARCHIVING_UPDATE_TABLE_PROCESS(@ID)</b>"]
-    AC --> AD["Read config<br/>Call MATCHCOLUMNS + GETTABLECOLUMNS"]
-    AD --> AE{"ACTION &ne; 2?<br/><i>(1=UPDATE ONLY<br/>3=UPDATE+INSERT)</i>"}
-    AE -->|Yes| AF["<b>UPDATE</b><br/>SET dest.col = src.col<br/>FROM dest JOIN src ON key"]
-    AE -->|No| AG{"ACTION &ne; 1?<br/><i>(2=INSERT ONLY<br/>3=UPDATE+INSERT)</i>"}
-    AF --> AG
-    AG -->|Yes| AH["<b>INSERT</b><br/>INTO dest<br/>SELECT FROM src<br/>WHERE key NOT IN dest"]
-    AG -->|No| AI["Next table in cursor"]
-    AH --> AI
-    AC -.->|"On ERROR"| AJ["Log SQL error<br/>to LAST_ERROR_MSG"]
-    AJ --> AI
-    AB -->|"After cursor loop"| AK["Log to Navision.AutoProcessLogs:<br/>Process ID = 'UPDATE TABLE'"]
-    AK --> AL(["END"])
-```
-
-### 5. Procedure Call Hierarchy
+### 2. Procedure Call Hierarchy
 
 ```mermaid
 flowchart LR
@@ -239,41 +161,5 @@ flowchart LR
 ```
 
 ---
-
-## Key Behaviors
-
-### 10:00 PM Time Gate
-The archiving procedure checks if the current time is before 10:00 PM. If the day to process is today and it's before 10 PM, archiving skips that day — it waits until the nightly window. This prevents archiving from interfering with daytime operations.
-
-### Schema Auto-Sync
-`ARCHIVING_MATCHCOLUMNS` runs before every archive/sync operation. If new columns have been added to a source table, they are automatically added to the destination table with the correct data type. This means schema changes are propagated without manual intervention.
-
-### Deduplication
-Destination inserts use a `NOT IN (SELECT ... FROM destination)` pattern based on `RELATION_FIELD` to avoid inserting rows that already exist in the archive.
-
-### No Foreign Keys
-There are no SQL `FOREIGN KEY` constraints between the configuration tables. Relationships are enforced entirely in the stored procedure logic via `RELATION_ID` and `RELATION_FIELD`.
-
-### Linked Server
-The destination is reached via SQL Server linked server. The current endpoint is the `eterminal-archive` RDS instance. Historically (pre-2019), the destination was an IP-based server (`13.228.233.96`) which was replaced by the RDS endpoint.
-
----
-
-## Adding a New Table to Archive
-
-To add a new table to the archiving process:
-
-1. **Create matching table** on the destination `eterminal-archive` server (or let `ARCHIVING_MATCHCOLUMNS` auto-create columns on first run)
-2. **INSERT a row** into `ARCHIVING_TABLE` with:
-   - Source/destination catalog, schema, and table names
-   - The date column to filter by (`TABLE_DATE`)
-   - `RELATION_ID = 0` (or a valid relation ID if it has children)
-   - `RELATION_FIELD` = any unique column (used for deduplication)
-   - `NO_MONTH_DAY = 7`
-   - `EMAIL_TO` and `EMAIL_CC`
-   - `ACTIVE = 1`
-   - `RUN_SCHEDULED = 'DAILY'`
-   - `SOURCE_DELETE = 1` (or `0` to keep source rows)
-3. If the table has child tables that must be archived together, add rows to `ARCHIVING_TABLE_RELATION`
 
 *Last updated: July 2026*

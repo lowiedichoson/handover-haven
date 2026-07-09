@@ -57,7 +57,7 @@ nav:
                   - Report Generator: handovers/lowie-dave-dichoson/systems/clientease/report-generator.md
               - Production Archiving:
                   - Overview: handovers/lowie-dave-dichoson/systems/production-archiving/production-archiving.md
-                  - Eterminal: handovers/lowie-dave-dichoson/systems/production-archiving/eterm-archiving.md
+                  - Eterminal: handovers/lowie-dave-dichoson/systems/production-archiving/eterminal-archiving.md
                   - Esettlement: handovers/lowie-dave-dichoson/systems/production-archiving/esettlement-archiving.md
               - Other Systems:
                   - LOI Generator: handovers/lowie-dave-dichoson/systems/loi-generator.md
@@ -70,6 +70,8 @@ nav:
                   - VEI Website: handovers/lowie-dave-dichoson/systems/vei-website.md
 theme:
   name: material
+  font:
+    text: Inter
   icon:
     logo: octicons/rocket-16
   palette:

@@ -2,7 +2,11 @@
 
 > **Disclaimer:** This diagram reflects my understanding of the system connections as of July 2026. It is not the authoritative truth — verify before relying on it.
 
-## VFC System Landscape
+---
+
+## Core Transaction Flow
+
+How branch transactions move from teller operations through end-of-day processing and into the accounting system.
 
 ```mermaid
 graph TD
@@ -23,48 +27,69 @@ graph TD
     eCore -->|"auto-post transactions"| eTerminal
     WUPOS -->|"auto-post transactions"| eTerminal
 
-    subgraph EOD["🌙 End-of-Day Process (10:30 PM)"]
-        eTerminalEOD["<b>eTerminal EOD Job</b><br/>Transforms raw transactions<br/>into journal entries<br/>(accounting format)"]
+    subgraph EOD["🌙 End-of-Day (10:30 PM)"]
+        eTerminalEOD["<b>eTerminal EOD Job</b><br/>Transforms raw transactions<br/>into journal entries"]
     end
 
     eTerminal -->|"all daily cash flows"| eTerminalEOD
 
-    subgraph NextDay["☀️ Next Morning"]
+    subgraph Morning["☀️ Next Morning"]
         Synapse["<b>Synapse</b><br/>Bridges journal entries<br/>to Navision"]
         TCSG["TCSG Department"]
         Navision["<b>Navision</b><br/>Accounting system"]
     end
 
-    eTerminalEOD -->|"journal entries ready<br/>for transfer"| Synapse
+    eTerminalEOD -->|"journal entries ready"| Synapse
     TCSG -->|"validates & transfers"| Synapse
     Synapse -->|"posts journal entries"| Navision
+```
 
-    subgraph WUFlow["💱 Western Union Data Flow"]
-        WUSFG["<b>WUSFG Website</b><br/>AC & ST file downloads<br/>(external WU source)"]
+> eCore is the primary system. eTerminal is the fallback. All cash flows — whether transacted through eCore, eTerminal, or WUPOS — eventually land in eTerminal for branch cash reporting and teller accountability. At 10:30 PM, the EOD background process transforms raw transactions into journal entries. The next morning, TCSG uses Synapse to validate and transfer those entries into Navision.
+
+---
+
+## Western Union Data Pipeline
+
+How Western Union transaction files flow from download through processing, auto-posting, and reporting.
+
+```mermaid
+graph TD
+    subgraph WUSource["💱 External Source"]
+        WUSFG["<b>WUSFG Website</b><br/>AC & ST file downloads"]
+    end
+
+    subgraph Processing["⚙️ Processing"]
         Voyager["<b>Voyager</b><br/>Desktop app<br/>processes AC/ST files"]
         Esettlement["<b>eSettlement</b><br/>Retrieves Voyager data,<br/>processes transactions"]
+    end
+
+    subgraph Auto["🤖 Auto-Posting"]
         AutoJob["<b>Auto SQL Jobs</b><br/>9:00 AM — journal entries<br/>9:30 AM — transfer to Navision"]
     end
+
+    Navision["<b>Navision</b><br/>Accounting system"]
 
     WUSFG -->|"AC/ST files downloaded"| Voyager
     Voyager -->|"processed WU data"| Esettlement
     Esettlement -->|"transaction data"| AutoJob
     AutoJob -->|"auto-post journal entries"| Navision
 
-    Voyager -.->|"WU data reconciled against"| eTerminal
-
-    subgraph Reports["📊 Report Generators"]
-        FTR["<b>FTR Generator</b><br/>Desktop app<br/>generates reports used by<br/>TCSG, Accounting, Treasury"]
-        VoyagerFX["<b>Voyager FX</b><br/>Desktop app<br/>generates reports used by<br/>TCSG, Accounting, Treasury"]
+    subgraph Reports["📊 Report Consumers"]
+        FTR["<b>FTR Generator</b><br/>Desktop app<br/>reports for TCSG, Accounting, Treasury"]
+        VoyagerFX["<b>Voyager FX</b><br/>Desktop app<br/>reports for TCSG, Accounting, Treasury"]
     end
 
     Voyager -->|"consumes data"| FTR
     Esettlement -->|"consumes data"| VoyagerFX
+
+    eTerminal["<b>eTerminal</b><br/>Core transaction system"]
+    Voyager -.->|"WU data reconciled against"| eTerminal
 ```
 
-> eCore is the primary system. eTerminal is the fallback. All cash flows — whether transacted through eCore, eTerminal, or WUPOS — eventually land in eTerminal for branch cash reporting and teller accountability. At 10:30 PM, the EOD background process transforms raw transactions into journal entries. The next morning, TCSG uses Synapse to validate and transfer those entries into Navision.
->
-> On the Western Union side, TCSG downloads AC/ST files from WUSFG, processes them in Voyager, then feeds them into eSettlement. Automated SQL jobs (9:00 AM journal entries, 9:30 AM transfer to Navision) handle the rest — the automated equivalent of what Synapse does manually for eTerminal data. Voyager's WU data is also reconciled against eTerminal's internal WU records to ensure consistency.
+> TCSG downloads AC/ST files from WUSFG, processes them in Voyager, then feeds them into eSettlement. Automated SQL jobs handle the rest — creating journal entries at 9:00 AM and transferring to Navision at 9:30 AM (the automated equivalent of what Synapse does manually for eTerminal data). Voyager's WU data is also reconciled against eTerminal's internal WU records to ensure consistency.
 >
 > FTR Generator and Voyager FX are reporting tools that consume data from Voyager and eSettlement respectively, generating reports for TCSG, Accounting, and Treasury.
 
+---
+
+*Last updated: July 2026*
