@@ -40,19 +40,20 @@ DECLARE @DateTo   DATETIME = '20221231';
 
 ```sql
 SELECT
-	CONVERT(CHAR(10), [Posting Date], 111) [Transaction Date],
-	[Transaction Type],
-	[Transaction Sub Type],
-	[User ID],
-	[Unit Code (Dimension)] [Branch Code],
-	c.[Name] [Branch Name],
-	[Document No_],
-	[Account Name],
-	CAST(ROUND(ISNULL([Exchange Rate], 0), 2) AS DECIMAL(18,2)) [Exchange Rate],
-	CAST(ROUND(ISNULL([Requested Rate], 0), 2) AS DECIMAL(18,2)) [Requested Rate],
-	CAST(ROUND(ISNULL([Principal Amount], 0), 2) AS DECIMAL(18,2)) [Principal Amount],
-	CAST(ROUND(ISNULL([Principal Amount (LCY)], 0), 2) AS DECIMAL(18,2)) [Principal Amount (LCY)],
-	(CASE WHEN [Admin Approved] = 1 THEN 'APPROVED' ELSE '' END) [Approval Status]
+    CONVERT(CHAR(10), a.[Posting Date], 111) [Transaction Date],
+    a.[Transaction Type],
+    a.[Transaction Sub Type],
+    a.[User ID],
+    a.[Unit Code (Dimension)] [Branch Code],
+    c.[Name] [Branch Name],
+    a.[Document No_],
+	a.[Control No_],
+    a.[Account Name],
+    CAST(ROUND(ISNULL(a.[Exchange Rate], 0), 2) AS DECIMAL(18,2)) [Exchange Rate],
+    CAST(ROUND(ISNULL(a.[Requested Rate], 0), 2) AS DECIMAL(18,2)) [Requested Rate],
+    CAST(ROUND(ISNULL(a.[Principal Amount], 0), 2) AS DECIMAL(18,2)) [Principal Amount],
+    CAST(ROUND(ISNULL(a.[Principal Amount (LCY)], 0), 2) AS DECIMAL(18,2)) [Principal Amount (LCY)],
+    (CASE WHEN [Admin Approved] = 1 THEN 'APPROVED' ELSE '' END) a.[Approval Status]
 FROM [E-Business Services Inc_$Branch Journal Line] a
 INNER JOIN [E-Business Services Inc_$Dimension Value] c ON a.[Unit Code (Dimension)] = c.[Code]
 WHERE [Admin Approved] = @ApprovalMark
