@@ -17,3 +17,5 @@ A catalog of runbook guides for recurring tasks and requests handled by Lowie Da
 | 010 | [Uploading of Files & Shortened Link](010-uploading-of-files-and-shortened-link.md) | PEMI Website | — |
 | 011 | [Check Unsettled Transactions](011-checking-of-unsettled-transactions.md) | Voyager, Esettlement | Voyager DB, BridgeDb |
 | 012 | [Extract Historical NAVPS](012-extract-historical-navps.md) | PEMI Website | philequity |
+| 013 | [Extract Fund Fact Sheet](013-extract-fund-fact-sheet.md) | PEMI Website | philequity |
+| 014 | [Extract Voyager Transactions with Send Date](014-extract-voyager-transactions-with-send-date.md) | Voyager | Voyager |
