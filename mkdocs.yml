@@ -68,6 +68,7 @@ nav:
                   - Navision: handovers/lowie-dave-dichoson/systems/navision.md
                   - PEMI Website: handovers/lowie-dave-dichoson/systems/pemi-website.md
                   - VEI Website: handovers/lowie-dave-dichoson/systems/vei-website.md
+                  - COH & CDD: handovers/lowie-dave-dichoson/systems/coh-cdd-console-application.md
 theme:
   name: material
   font:
