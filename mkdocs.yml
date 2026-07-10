@@ -19,6 +19,7 @@ nav:
           - Production Server List: handovers/lowie-dave-dichoson/systems-list.md
           - System Architecture: handovers/lowie-dave-dichoson/system-architecture.md
           - Databases: handovers/lowie-dave-dichoson/databases.md
+          - VFC Operations: handovers/lowie-dave-dichoson/vfc-operations-support.md
           - Common Requests:
               - Overview: handovers/lowie-dave-dichoson/common-requests/index.md
               - Reverse Bridge Entries: handovers/lowie-dave-dichoson/common-requests/000-reverse-bridge-entries.md
