@@ -45,7 +45,7 @@ SELECT
     a.[Transaction Sub Type],
     a.[User ID],
     a.[Unit Code (Dimension)] [Branch Code],
-    c.[Name] [Branch Name],
+    TRIM(c.[Name]) [Branch Name],
     a.[Document No_],
 	a.[Control No_],
     a.[Account Name],
@@ -53,14 +53,14 @@ SELECT
     CAST(ROUND(ISNULL(a.[Requested Rate], 0), 2) AS DECIMAL(18,2)) [Requested Rate],
     CAST(ROUND(ISNULL(a.[Principal Amount], 0), 2) AS DECIMAL(18,2)) [Principal Amount],
     CAST(ROUND(ISNULL(a.[Principal Amount (LCY)], 0), 2) AS DECIMAL(18,2)) [Principal Amount (LCY)],
-    (CASE WHEN [Admin Approved] = 1 THEN 'APPROVED' ELSE '' END) a.[Approval Status]
+    (CASE WHEN [Admin Approved] = 1 THEN 'APPROVED' ELSE '' END) [Approval Status]
 FROM [E-Business Services Inc_$Branch Journal Line] a
 INNER JOIN [E-Business Services Inc_$Dimension Value] c ON a.[Unit Code (Dimension)] = c.[Code]
 WHERE [Admin Approved] = @ApprovalMark
 AND [Posting Date] BETWEEN @DateFrom AND @DateTo
 AND [Transaction Type] = 'MC'
-AND [Adjustment ID] <> -1          -- excludes voided transactions
-AND [Requested Rate] <> [Exchange Rate]
+AND [Adjustment ID] <> -1 -- excludes voided transactions
+AND [Requested Rate] <> [Exchange Rate] -- only apply this condition if the requestor requires it
 ORDER BY [Document No_] ASC;
 ```
 
